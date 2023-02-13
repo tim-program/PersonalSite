@@ -1,5 +1,14 @@
-body{
-	margin:0;
-	background:#C0C0C0;
-	text-align:center;
+body {
+  margin: 0;
+  background: #dddddd;
+  text-align: center;
+}
+
+.PageContent{
+  align-content: center;
+}
+
+.PopOutParagraph {
+  color: #530404;
+  font-size: 40px;
 }
