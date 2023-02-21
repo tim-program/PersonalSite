@@ -62,8 +62,9 @@ p.ParagraphContent{
   text-align:center;
   align-items: center;
   margin: auto;
-  width: 50%;
+  width: 70%;
   padding: 2rem;
+  font-size:20px;
 }
 
 
