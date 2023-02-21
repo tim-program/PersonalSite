@@ -56,6 +56,17 @@ div.ProjectTitleTile p{
   bottom: 0;
 }
 
+p.ParagraphContent{
+  display:flex;
+  justify-content: center;
+  text-align:center;
+  align-items: center;
+  margin: auto;
+  width: 50%;
+  padding: 2rem;
+}
+
+
 @media only screen and (max-width:1214px) and (min-width:481px){
   ul.PageBar{
     list-style: none;
