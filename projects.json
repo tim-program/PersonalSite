@@ -1,0 +1,12 @@
+{
+  "Projects": {
+    "MonoGameZeldaProject": { "ProjectTitle":"Zelda Level 1","Description":"Lorem Ipsum","Year":"2020"},
+    "GameJamAdaptProject": { "ProjectTitle":"Dungeon Project","Description": "Lorem Ipsum","Year":"2021" },
+    "OSUCapstoneProject": { "ProjectTitle":"Haunted Mansion","Description":"Lorem Ipsum","Year":"2022"}
+  },
+  "Studies": {
+    "NaniteLegoProject": { "ProjectTitle":"Python Scripts In Unreal","Description": "Lorem Ipsum","Year":"2021" },
+    "UnrealOctree2": { "ProjectTitle":"Using Octree2 In Unreal", "Description": "Lorem Ipsum", "Year":"2023"}
+
+  }
+}
