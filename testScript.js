@@ -12,21 +12,29 @@ async function getProjectJson(file){
 function JsonToHtmlListings(JsonData,ContentType){
     var ListNames = Object.keys(JsonData[ContentType]);
     for(let Name of ListNames){
-        AddHtmlTileToPage(Name,JsonData[ContentType][Name]);
+        AddHtmlTileToPage(ContentType,Name,JsonData[ContentType][Name]);
     }
 }
 
-function AddHtmlTileToPage(ListingName,ListingInfo){
-    var HtmlString = CreateHtmlStringFromDetails(ListingName,ListingInfo["ProjectTitle"],ListingInfo["Description"],ListingInfo["Year"])
+function AddHtmlTileToPage(ContentType,ListingName,ListingInfo){
+    var HtmlString = CreateHtmlStringFromDetails(ContentType,ListingName,ListingInfo["Title"],ListingInfo["Description"],ListingInfo["Year"])
     var ProjectContainer = document.getElementById("ProjectsDiv");
     ProjectContainer.innerHTML += HtmlString;
 }
 
-function CreateHtmlStringFromDetails(ListingName,ProjectTitle,Description,Year){
-    var htmlString = "<a href=\""+ListingName+".html\">\n";
+/*
+ <a href="./index.html">
+                <div class="ProjectTitleTile">
+                    <h1>Title</h1>
+                    <p>Description</p>
+                </div>
+            </a>
+*/
+function CreateHtmlStringFromDetails(ContentType,ListingName,Title,Description,Year){
+    var htmlString = "<a href=\"./"+ContentType+"/"+ListingName+".html\">\n";
     htmlString += "<div class = \"ProjectTitleTile\">\n";
-    //htmlString += "<h1>" + ProjectTitle + "</h1>\n";
-    htmlString += "<p>" + ProjectTitle+ " "+ Description + "</p>\n";
+    htmlString += "<h1>" + Title + "</h1>\n";
+    htmlString += "<p>" + Description + "</p>\n";
     htmlString += "</div>\n";
     htmlString += "</a>\n";
 

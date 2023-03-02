@@ -1,12 +1,12 @@
 {
   "Projects": {
-    "MonoGameZeldaProject": { "ProjectTitle":"Zelda Level 1","Description":"Lorem Ipsum","Year":"2020"},
-    "GameJamAdaptProject": { "ProjectTitle":"Dungeon Project","Description": "Lorem Ipsum","Year":"2021" },
-    "OSUCapstoneProject": { "ProjectTitle":"Haunted Mansion","Description":"Lorem Ipsum","Year":"2022"}
+    "MonoGameZeldaProject": { "Title":"MonoGame Zelda","Description":"Recreation of the first dungeon of Legend of Zelda for the NES using MonoGame.","Year":"2020"},
+    "OSUCapstoneProject": { "Title":"OSU Capstone","Description":"OSU capstone project creating a game in unity.","Year":"2022"}
   },
-  "Studies": {
-    "NaniteLegoProject": { "ProjectTitle":"Python Scripts In Unreal","Description": "Lorem Ipsum","Year":"2021" },
-    "UnrealOctree2": { "ProjectTitle":"Using Octree2 In Unreal", "Description": "Lorem Ipsum", "Year":"2023"}
+  "Blogs": {
+    "UnrealLegoMaterialScript": { "Title":"Python Scripts In Unreal","Description": "Using python in Unreal Engine to automate large tasks.","Year":"2021" },
+    "UnrealOctree2": { "Title":"Using Octree2 In Unreal", "Description": "Using Octree2 data type in Unreal Engine.", "Year":"2023"},
+    "GameJamAdapt": { "Title":"GameJam Adaptation","Description": "5 day GameJam submission using Unreal Engine.","Year":"2021" }
 
   }
 }
