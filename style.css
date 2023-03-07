@@ -88,6 +88,11 @@ p.ParagraphContent{
   font-size:20px;
 }
 
+div.IframeContainer{
+  width: 960;
+  height: 540;
+  background:url(images/Untitled.png) center center no-repeat;
+}
 
 @media only screen and (max-width:1214px) and (min-width:481px){
   ul.PageBar{
