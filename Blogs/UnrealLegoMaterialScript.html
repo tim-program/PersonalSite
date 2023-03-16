@@ -25,44 +25,47 @@
         <iframe width="960" height="540" src="https://www.youtube.com/embed/xqzLOTBfzaw" frameborder="0" allowfullscreen>
         </iframe>
       </div>
-    <p>year: 2022
+    
+      <p class="ParagraphContent">
+        year: 2022
 
-      -originally inspired to attempt this from another youtube video
-      https://www.youtube.com/watch?v=HELDYdr5i4Q&ab_channel=NicolasBrack
-      
-      -found the website the models were retrieved from mecabricks.com
-      -easy to download from website and import models into unreal engine
-      -problem was that each lego brick was its own individual mesh
-        with a local offset from the origin that coincided to its location
-        on the lego set
-      -resonable enough although every lego brick has its own material
-      -no master material and material instances even for materials of the same color
-      
-      -the reason this was important to me was because I wanted to add custom imperfections
-        to the lego bricks
-      -originally thought i would have to bake a blender imperfection shader into a texture
-        to apply to the bricks since the website had an imperfection shader that could be
-        used to render models inside of blender
-      -I would soon find out this was impractical since i would be baking textures for 
-        thousands of individuals models that make up the lego set
-      
-      -after some more researching i remembered hearing about Unreal Engines python
-        API that could be used to automate some process
-      -using the python api i was able to write some scripts to help deal with the thousands
-        of individual static meshes
-      -most notable use was a script that would consolidate materials of similar color into
-        a single material instance of a master material which i then used as an imperfection
-        material
-      
-      -the script is relativly straight forward
-      -takes list of all selected object in editor and casts to static mesh to retieve a list of
-        all the materials being used in the list of meshes
-      -then given a master material it will create a new instance and apply either the diffuse
-        color or the material texture then apply it to the static mesh of the
-        associated material
-      
-      SCRIPT CODE:
-      
+-originally inspired to attempt this from another youtube video
+https://www.youtube.com/watch?v=HELDYdr5i4Q&ab_channel=NicolasBrack
+
+-found the website the models were retrieved from mecabricks.com
+-easy to download from website and import models into unreal engine
+-problem was that each lego brick was its own individual mesh
+	with a local offset from the origin that coincided to its location
+	on the lego set
+-resonable enough although every lego brick has its own material
+-no master material and material instances even for materials of the same color
+
+-the reason this was important to me was because I wanted to add custom imperfections
+	to the lego bricks
+-originally thought i would have to bake a blender imperfection shader into a texture
+	to apply to the bricks since the website had an imperfection shader that could be
+	used to render models inside of blender
+-I would soon find out this was impractical since i would be baking textures for 
+	thousands of individuals models that make up the lego set
+
+-after some more researching i remembered hearing about Unreal Engines python
+	API that could be used to automate some process
+-using the python api i was able to write some scripts to help deal with the thousands
+	of individual static meshes
+-most notable use was a script that would consolidate materials of similar color into
+	a single material instance of a master material which i then used as an imperfection
+	material
+
+-the script is relativly straight forward
+-takes list of all selected object in editor and casts to static mesh to retieve a list of
+	all the materials being used in the list of meshes
+-then given a master material it will create a new instance and apply either the diffuse
+	color or the material texture then apply it to the static mesh of the
+	associated material
+
+      </p>
+
+      <pre>
       import unreal
       
       
@@ -113,11 +116,9 @@
           for current_mesh in material_mesh_map[current_material]:
               current_mesh.set_material(0,imperfect_material)
               unreal.log("Material assigned to mesh: "+current_mesh.get_name())
-      
-      
-      
+      </pre>
                   
-          </p>
+          
 
   </body>
 </html>

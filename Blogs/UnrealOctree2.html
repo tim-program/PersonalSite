@@ -21,7 +21,7 @@
         <a href="../TimothyDeutschResumeRevising.pdf"><li>Resume (revising)</li></a>
       </ul>
       <img width="960" height="540" src="../images/octree.png" alt="octree image"/>
-    <p>(Not meant as a comprehensive tutorial)
+    <p class="ParagraphContent">(Not meant as a comprehensive tutorial)
       (Done with Unreal Engine version 5.0.3)
       
       -in a recent unreal engine project of mine i wanted to try utilizing octrees and found
@@ -31,9 +31,9 @@
       
       -here's the header of the tool i used to test the octree.
       -creation of the octree data type is copy and paste from the previous depricated octree
+      </p>
       
-      
-      CODE: 
+      <pre>
       
       USTRUCT(BlueprintType)
       struct FOctreeElement {
@@ -95,12 +95,15 @@
         
       };
       
+    </pre>
+
+    <p class="ParagraphContent">
       -when working with the TOctree2 in order to iterate through the elements and nodes, lambdas are past as arguments
       -one a predicate to indicate what nodes/elements to work with
       -another lambda which operates on the nodes/elements
-      
-      CPP FILE:
-      
+    </p>
+
+      <pre>
       AOctreeDemoTool::AOctreeDemoTool(){
         SimpleOctree = new FSimpleOctree2(FVector(0.0f,0.0f,0.0f),100.0f);
       }
@@ -145,8 +148,9 @@
         SimpleOctree->DumpStats();
       }
       
+      </pre>
       
-      
+      <p class="ParagraphContent">
       -mention that secret loosness variable
       -ive never made an octree but a variable called LoosenessDenominator exists within the FOctreeNodeContext class
       -this extends octree nodes past there exact extents (provide picture of comparison)

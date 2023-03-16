@@ -89,6 +89,24 @@ p.ParagraphContent{
   font-size:20px;
 }
 
+pre {
+  background: #f4f4f4;
+  border: 5px solid #5D2B90;
+
+  color: #666;
+  page-break-inside: avoid;
+  font-family: monospace;
+  font-size: 15px;
+  line-height: 1.6;
+  margin-bottom: 1.6em;
+  max-width: 70%;
+  overflow: scroll;
+  text-align: left;
+  padding: 1em 1.5em;
+  display: block;
+  margin: auto;
+}
+
 div.IframeContainer{
   width: 960;
   height: 540;
