@@ -6,7 +6,7 @@
   "Blogs": {
     "UnrealLegoMaterialScript": { "Title":"Python Scripts In Unreal","Description": "Using python in Unreal Engine to automate large tasks.","Year":"2021" },
     "UnrealOctree2": { "Title":"Using Octree2 In Unreal", "Description": "Using Octree2 data type in Unreal Engine.", "Year":"2023"},
-    "GameJamAdapt": { "Title":"GameJam Adaptation","Description": "5 day GameJam submission using Unreal Engine.","Year":"2021" }
-
+    "GameJamAdapt": { "Title":"GameJam Adaptation","Description": "5 day GameJam submission using Unreal Engine.","Year":"2021" },
+    "UnrealGunSystem": { "Title":"Dynamic Gun System","Description":"Dynamic gun system in Unreal using Data Assets","Year":"2023"}
   }
 }

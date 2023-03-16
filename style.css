@@ -80,7 +80,8 @@ div.ProjectTitleTile h1{
 p.ParagraphContent{
   display:flex;
   justify-content: center;
-  text-align:center;
+  text-align:left;
+  text-indent: 50px;
   align-items: center;
   margin: auto;
   width: 70%;

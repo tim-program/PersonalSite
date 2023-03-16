@@ -20,7 +20,142 @@
         <a href="../blog.html"><li>Blog</li></a>
         <a href="../TimothyDeutschResumeRevising.pdf"><li>Resume (revising)</li></a>
       </ul>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras dapibus magna nunc, et congue augue elementum et. Ut id aliquam turpis. Maecenas vel erat mi. Proin feugiat eros non efficitur maximus. Aliquam erat volutpat. In iaculis fringilla dolor nec accumsan. Aliquam in ligula lectus. </p>
+      <img width="960" height="540" src="../images/octree.png" alt="octree image"/>
+    <p>(Not meant as a comprehensive tutorial)
+      (Done with Unreal Engine version 5.0.3)
+      
+      -in a recent unreal engine project of mine i wanted to try utilizing octrees and found
+        that unreal engine has some available quadtree data types
+      -although the resources i found for implementing octrees were for the previous
+        depricated version
+      
+      -here's the header of the tool i used to test the octree.
+      -creation of the octree data type is copy and paste from the previous depricated octree
+      
+      
+      CODE: 
+      
+      USTRUCT(BlueprintType)
+      struct FOctreeElement {
+        GENERATED_USTRUCT_BODY()
+      
+        UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Octree Element Struct", meta = (AllowPrivateAccess = "true"))
+        FVector ElementPoint;
+      
+        UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Octree Element Struct", meta = (AllowPrivateAccess = "true"))
+        FBoxSphereBounds BoxSphereBounds;
+      
+        FOctreeElement() {
+          ElementPoint = FVector(0.0f, 0.0f, 0.0f);
+          BoxSphereBounds = FBoxSphereBounds(FVector(0.0f, 0.0f, 0.0f), FVector(1.0f, 1.0f, 1.0f), 1.0f);
+        }
+      };
+      
+      
+      struct FOctreeSematics {
+        enum { MaxElementsPerLeaf = 1 };
+        enum { MinInclusiveElementsPerNode = 7 };
+        enum { MaxNodeDepth = 12 };
+      
+        typedef TInlineAllocator<MaxElementsPerLeaf> ElementAllocator;
+      
+        FORCEINLINE static FBoxSphereBounds GetBoundingBox(const FOctreeElement& Element) { return Element.BoxSphereBounds; }
+        FORCEINLINE static bool AreElementsEqual(const FOctreeElement& A, const FOctreeElement& B) { return A.ElementPoint == B.ElementPoint; }
+        FORCEINLINE static void SetElementId(const FOctreeElement& Element, FOctreeElementId2 Id) {}
+        FORCEINLINE static void ApplyOffset(FOctreeElement& Element, FVector Offset) {
+          FVector NewPosition = Element.ElementPoint + Offset;
+          Element.ElementPoint = NewPosition;
+          Element.BoxSphereBounds.Origin = NewPosition;
+        }
+      };
+      
+      typedef TOctree2<FOctreeElement, FOctreeSematics> FSimpleOctree2;
+      
+      UCLASS()
+      class PROJECT_API AOctreeDemoTool : public Actor{
+      
+        GENERATED_BODY()
+      
+        FSimpleOctree2* SimpleOctree;
+        
+      public:
+      
+        AOctreeDemoTool();
+        
+        void InitializeRootBounds(FVector WorldLocation, float MaxHalfExtent);
+        void AddVector(FVector NewElementVector);
+        
+        UFUNCTION(BlueprintCallable)
+        void DrawOctree(float LifeTime);
+        
+        UFUNCTION(BlueprintCallable)
+        void DebugOctree();
+      
+        //...
+        
+      };
+      
+      -when working with the TOctree2 in order to iterate through the elements and nodes, lambdas are past as arguments
+      -one a predicate to indicate what nodes/elements to work with
+      -another lambda which operates on the nodes/elements
+      
+      CPP FILE:
+      
+      AOctreeDemoTool::AOctreeDemoTool(){
+        SimpleOctree = new FSimpleOctree2(FVector(0.0f,0.0f,0.0f),100.0f);
+      }
+      
+      void AOctreeDemoTool::InitializeRootBounds(FVector WorldLocation, float MaxHalfExtent) {
+        FVector Min = FVector(-MaxHalfExtent, -MaxHalfExtent, -MaxHalfExtent);
+        FVector Max = FVector(MaxHalfExtent, MaxHalfExtent, MaxHalfExtent);
+      
+        FBox NewBounds = FBox(Min, Max);
+        NewBounds = NewBounds.ShiftBy(WorldLocation);
+        
+        SimpleOctree->Destroy();
+        delete SimpleOctree;
+        SimpleOctree = new FSimpleOctree2(NewBounds.GetCenter(), NewBounds.GetExtent().GetMax());
+      }
+      
+      
+      void AOctreeDemoTool::AddVector(FVector NewElementVector) {
+        FOctreeElement NewElement;
+        NewElement.ElementPoint = NewElementVector;
+        NewElement.BoxSphereBounds = FBoxSphereBounds(FVector(0.0f, 0.0f, 0.0f), FVector(1.0f, 1.0f, 1.0f), 1.0f);
+        NewElement.BoxSphereBounds.Origin =  NewElementVector;
+      
+        SimpleOctree->AddElement(NewElement);
+        
+        DrawDebugPoint(GetWorld(), NewElementVector, 10.0f, FColor::Green, true, 0.0f);
+      }
+      
+      void AOctreeDemoTool::DrawOctree(float LifeTime) {
+        UWorld* WorldContext = GetWorld();
+      
+        SimpleOctree->FindNodesWithPredicate(
+          [](FSimpleOctree2::FNodeIndex /*ParentNodeIndex*/, FSimpleOctree2::FNodeIndex /*NodeIndex*/, const FBoxCenterAndExtent& /*BoxBounds*/) {return true; },
+          [WorldContext,LifeTime](FSimpleOctree2::FNodeIndex ParentNodeIndex, FSimpleOctree2::FNodeIndex NodeIndex, const FBoxCenterAndExtent BoxBounds) {
+            DrawDebugBox(WorldContext, BoxBounds.Center, BoxBounds.Extent, FColor::Red, false, LifeTime);
+      
+          }
+        );
+      }
+      
+      void AOctreeDemoTool::DebugOctree() {
+        SimpleOctree->DumpStats();
+      }
+      
+      
+      
+      -mention that secret loosness variable
+      -ive never made an octree but a variable called LoosenessDenominator exists within the FOctreeNodeContext class
+      -this extends octree nodes past there exact extents (provide picture of comparison)
+      -and increasing the variable improves the tightness of the octree nodes
+      -quickest way i found to change this was by manually editing GenericOctree.h where it is located and rebuilding
+        (FOctreeNodeContext::LoosenessDenominator)
+        enum {LoosenessDenominator = 16};
+        
+      </p>
       
   </body>
 </html>

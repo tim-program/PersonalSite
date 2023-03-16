@@ -25,7 +25,99 @@
         <iframe width="960" height="540" src="https://www.youtube.com/embed/xqzLOTBfzaw" frameborder="0" allowfullscreen>
         </iframe>
       </div>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras dapibus magna nunc, et congue augue elementum et. Ut id aliquam turpis. Maecenas vel erat mi. Proin feugiat eros non efficitur maximus. Aliquam erat volutpat. In iaculis fringilla dolor nec accumsan. Aliquam in ligula lectus. </p>
+    <p>year: 2022
+
+      -originally inspired to attempt this from another youtube video
+      https://www.youtube.com/watch?v=HELDYdr5i4Q&ab_channel=NicolasBrack
+      
+      -found the website the models were retrieved from mecabricks.com
+      -easy to download from website and import models into unreal engine
+      -problem was that each lego brick was its own individual mesh
+        with a local offset from the origin that coincided to its location
+        on the lego set
+      -resonable enough although every lego brick has its own material
+      -no master material and material instances even for materials of the same color
+      
+      -the reason this was important to me was because I wanted to add custom imperfections
+        to the lego bricks
+      -originally thought i would have to bake a blender imperfection shader into a texture
+        to apply to the bricks since the website had an imperfection shader that could be
+        used to render models inside of blender
+      -I would soon find out this was impractical since i would be baking textures for 
+        thousands of individuals models that make up the lego set
+      
+      -after some more researching i remembered hearing about Unreal Engines python
+        API that could be used to automate some process
+      -using the python api i was able to write some scripts to help deal with the thousands
+        of individual static meshes
+      -most notable use was a script that would consolidate materials of similar color into
+        a single material instance of a master material which i then used as an imperfection
+        material
+      
+      -the script is relativly straight forward
+      -takes list of all selected object in editor and casts to static mesh to retieve a list of
+        all the materials being used in the list of meshes
+      -then given a master material it will create a new instance and apply either the diffuse
+        color or the material texture then apply it to the static mesh of the
+        associated material
+      
+      SCRIPT CODE:
+      
+      import unreal
+      
+      
+      material_mesh_map = {}
+      num_mappings = 0
+      
+      def contains_key(material_key):
+          for key in material_mesh_map.keys():
+              if key == material_key:
+                  return True
+          return False
+      
+      def create_imperfect_instance(mesh_material):
+          master_instance = unreal.EditorAssetLibrary.load_asset('/Game/ImperfectShaders/MI_MasterImperfection.MI_MasterImperfection')
+          asset_tools_object = unreal.AssetToolsHelpers.get_asset_tools()
+          duplicate_instance = asset_tools_object.duplicate_asset("M_Imperfect_" + mesh_material.get_name(),'/Game/ImperfectShaders/Duplicate',master_instance)
+          imperfect_instance = unreal.MaterialInstanceConstant.cast(duplicate_instance)
+      
+          uses_textures = len(unreal.MaterialEditingLibrary.get_used_textures(mesh_material)) != 0
+      
+          #only support one texture materials
+          if uses_textures:
+              material_texture = unreal.MaterialEditingLibrary.get_used_textures(mesh_material)[0]
+              unreal.MaterialEditingLibrary.set_material_instance_scalar_parameter_value(imperfect_instance,"bUseTexture",1.0)
+              unreal.MaterialEditingLibrary.set_material_instance_texture_parameter_value(imperfect_instance,"TextureParameter",material_texture)
+          else:
+              diffuse_color = unreal.MaterialEditingLibrary.get_material_default_vector_parameter_value(mesh_material,"Param")
+              unreal.MaterialEditingLibrary.set_material_instance_vector_parameter_value(imperfect_instance,"DiffuseParameter",diffuse_color)
+      
+          return imperfect_instance
+          
+      
+      selected_assets = unreal.EditorUtilityLibrary.get_selected_assets()
+      
+      for selected_asset in selected_assets:
+          sm_asset_cast = unreal.StaticMesh.cast(selected_asset)
+          if sm_asset_cast != None:
+              if contains_key(sm_asset_cast.get_material(0)):
+                  material_mesh_map[sm_asset_cast.get_material(0)].append(sm_asset_cast)
+              else:
+                  unreal.log("Creating new mapping: "+str(num_mappings))
+                  num_mappings+=1
+                  material_mesh_map.update({sm_asset_cast.get_material(0):[]})
+                  material_mesh_map[sm_asset_cast.get_material(0)].append(sm_asset_cast)
+      
+      for current_material in material_mesh_map.keys():
+          imperfect_material = create_imperfect_instance(current_material)
+          for current_mesh in material_mesh_map[current_material]:
+              current_mesh.set_material(0,imperfect_material)
+              unreal.log("Material assigned to mesh: "+current_mesh.get_name())
+      
+      
+      
+                  
+          </p>
 
   </body>
 </html>
