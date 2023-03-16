@@ -40,6 +40,8 @@ ul.PageBar li{
   color:white;
   text-align: center;
   border: 1px solid rgb(255, 136, 0);
+  line-height: 2em;
+  min-height: 2em;
 }
 
 
@@ -132,17 +134,20 @@ div.IframeContainer{
 @media only screen and (max-width:480px){
   ul.PageBar{
     list-style: none;
-    white-space: pre-wrap;
+    white-space:nowrap;
     justify-content: center;
   }
 
   ul.PageBar li{
-    display:inline-block;
+    display:block;
     padding: 0 0;
-    width: 100%;
-    max-width: none;
+    width:100%;
     min-width: none;
+    max-width: none;
     text-align: center;
+    margin: auto ;
+    margin-left: -5%;
+    font-size: 25px;
   }
 
 }
