@@ -7,20 +7,16 @@
     <link rel="stylesheet" type="text/css" href="style.css" />
     <title>Tim's Site</title>
     <link rel="shortcut icon" href="#"/>
+    <script type="text/javascript" src="ContentLoader.js"></script>
   </head>
   
-  <body>
-    <h1 class="PopOutParagraph">Tim's Site</h1>
+  <body onload="PopulatePageBar('.')">
+    <h1 class="PageHeading PageText">Tim's Site</h1>
     
 
-      <ul class="PageBar">
-        <a href="index.html"><li>Timothy Deutsch</li></a>
-        <!--<a href="../aboutMe.html"><li>About Me</li></a>-->
-        <a href="projects.html"><li>Projects</li></a>
-        <a href="blog.html"><li>Blog</li></a>
-        <a href="TimothyDeutschResumeRevising.pdf"><li>Resume (revising)</li></a>
-      </ul>
-      <p class="ParagraphContent"> I am a graduate of Ohio State University with a bachalors or science in computer and information science with
+      <ul id="PageBar">
+       </ul>
+      <p class="ParagraphContent PageText"> I am a graduate of Ohio State University with a bachalors or science in computer and information science with
         a specialization in compuer graphics and game design. During high school i took programming classes at a career
         center and continued my education at Ohio State University with a desire to learn more about game development.
         I begin learning game development with Unreal Engine after messing around with OpenGL and Unity for the previous two years.

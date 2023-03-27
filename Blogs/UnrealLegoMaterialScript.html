@@ -7,18 +7,14 @@
     <link rel="stylesheet" type="text/css" href="../style.css" />
     <title>Tim's Site</title>
     <link rel="shortcut icon" href="#"/>
+    <script type="text/javascript" src="../ContentLoader.js"></script>
   </head>
   
-  <body>
+  <body onload="PopulatePageBar('..')">
     <h1 class="PopOutParagraph">Python Scripts In Unreal</h1>
     
 
-      <ul class="PageBar">
-        <a href="../index.html"><li>Timothy Deutsch</li></a>
-       <!--<a href="../aboutMe.html"><li>About Me</li></a>-->
-        <a href="../projects.html"><li>Projects</li></a>
-        <a href="../blog.html"><li>Blog</li></a>
-        <a href="../TimothyDeutschResumeRevising.pdf"><li>Resume (revising)</li></a>
+      <ul id="PageBar">
       </ul>
       
       <div class="IframeContainer">
@@ -26,7 +22,7 @@
         </iframe>
       </div>
     
-      <p class="ParagraphContent">
+      <p class="ParagraphContent PageText">
         year: 2022
 
 -originally inspired to attempt this from another youtube video

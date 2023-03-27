@@ -7,21 +7,17 @@
     <link rel="stylesheet" type="text/css" href="../style.css" />
     <title>Tim's Site</title>
     <link rel="shortcut icon" href="#"/>
+    <script type="text/javascript" src="../ContentLoader.js"></script>
   </head>
   
-  <body>
+  <body onload="PopulatePageBar('..')">
     <h1 class="PopOutParagraph">Using Octree2 In Unreal</h1>
     
 
-      <ul class="PageBar">
-        <a href="../index.html"><li>Timothy Deutsch</li></a>
-        <!--<a href="../aboutMe.html"><li>About Me</li></a>-->
-        <a href="../projects.html"><li>Projects</li></a>
-        <a href="../blog.html"><li>Blog</li></a>
-        <a href="../TimothyDeutschResumeRevising.pdf"><li>Resume (revising)</li></a>
+      <ul id="PageBar">
       </ul>
       <img src="../images/octree.png" alt="octree image"/>
-    <p class="ParagraphContent">(Not meant as a comprehensive tutorial)
+    <p class="ParagraphContent PageText">(Not meant as a comprehensive tutorial)
       (Done with Unreal Engine version 5.0.3)
       
       -in a recent unreal engine project of mine i wanted to try utilizing octrees and found
@@ -97,7 +93,7 @@
       
     </pre>
 
-    <p class="ParagraphContent">
+    <p class="ParagraphContent PageText">
       -when working with the TOctree2 in order to iterate through the elements and nodes, lambdas are past as arguments
       -one a predicate to indicate what nodes/elements to work with
       -another lambda which operates on the nodes/elements
@@ -150,7 +146,7 @@
       
       </pre>
       
-      <p class="ParagraphContent">
+      <p class="ParagraphContent PageText">
       -mention that secret loosness variable
       -ive never made an octree but a variable called LoosenessDenominator exists within the FOctreeNodeContext class
       -this extends octree nodes past there exact extents (provide picture of comparison)

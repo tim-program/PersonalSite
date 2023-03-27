@@ -7,25 +7,21 @@
     <link rel="stylesheet" type="text/css" href="../style.css" />
     <title>Tim's Site</title>
     <link rel="shortcut icon" href="#"/>
+    <script type="text/javascript" src="../ContentLoader.js"></script>
   </head>
   
-  <body>
+  <body onload="PopulatePageBar('..')">
     <h1 class="PopOutParagraph">OSU Capstone</h1>
     
 
-      <ul class="PageBar">
-        <a href="../index.html"><li>Timothy Deutsch</li></a>
-        <!--<a href="../aboutMe.html"><li>About Me</li></a>-->
-        <a href="../projects.html"><li>Projects</li></a>
-        <a href="../blog.html"><li>Blog</li></a>
-        <a href="../TimothyDeutschResumeRevising.pdf"><li>Resume (revising)</li></a>
-      </ul>
+      <ul id="PageBar">
+        </ul>
 
       <div class="IframeContainer">
         <iframe src="https://www.youtube.com/embed/nvHyeVypFfk" frameborder="0" allowfullscreen>
         </iframe>
       </div>
-    <p class="ParagraphContent">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras dapibus magna nunc, et congue augue elementum et. Ut id aliquam turpis. Maecenas vel erat mi. Proin feugiat eros non efficitur maximus. Aliquam erat volutpat. In iaculis fringilla dolor nec accumsan. Aliquam in ligula lectus.
+    <p class="ParagraphContent PageText">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras dapibus magna nunc, et congue augue elementum et. Ut id aliquam turpis. Maecenas vel erat mi. Proin feugiat eros non efficitur maximus. Aliquam erat volutpat. In iaculis fringilla dolor nec accumsan. Aliquam in ligula lectus.
        </p>
 
   </body>
