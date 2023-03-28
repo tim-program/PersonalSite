@@ -105,12 +105,12 @@ img{
 }
 
 @media only screen and (max-width:1214px) and (min-width:481px){
-  ul.PageBar{
+  #PageBar{
     list-style: none;
     white-space: normal;
   }
 
-  ul.PageBar li{
+  #PageBar li{
     padding: 0 0.5rem;
     width: 15%;
     min-width: 0rem;
@@ -121,13 +121,13 @@ img{
 }
 
 @media only screen and (max-width:480px){
-  ul.PageBar{
+  #PageBar{
     list-style: none;
     white-space:nowrap;
     justify-content: center;
   }
 
-  ul.PageBar li{
+  #PageBar li{
     display:block;
     padding: 0 0;
     width:100%;
