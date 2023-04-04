@@ -11,7 +11,7 @@
   </head>
   
   <body onload="PopulatePageBar('..')">
-    <h1 class="PopOutParagraph">OSU Capstone</h1>
+    <h1 class="PageHeading PageText">OSU Capstone</h1>
     
 
       <ul id="PageBar">
@@ -21,8 +21,166 @@
         <iframe src="https://www.youtube.com/embed/nvHyeVypFfk" frameborder="0" allowfullscreen>
         </iframe>
       </div>
-    <p class="ParagraphContent PageText">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras dapibus magna nunc, et congue augue elementum et. Ut id aliquam turpis. Maecenas vel erat mi. Proin feugiat eros non efficitur maximus. Aliquam erat volutpat. In iaculis fringilla dolor nec accumsan. Aliquam in ligula lectus.
-       </p>
+    <p class="ParagraphContent PageText">
+      The capstone semester course at Ohio State University for the computer graphics and game design track breaks student in group, mine being composed of four individuals including me, to create a game in Unity.
+
+      Haunted Electrician, the game my group created, had the player act as an electrician trying to restore power to a haunted mansion in order to escape.
+
+      Throughout the game the player would solve puzzles, read notes of previous events that took place in the mansion, and be continuously pursued by an enemy.
+
+      The final product of the game at the end of the semester had all the original ideas for the game realized but I believe more time would have allowed for needed polished to get the intended experience.
+
+    </p>
+
+    
+
+    <h2 class="PageSubtitle PageText">Responsibilities buring development:</h2>
+
+    <ul class="PageListing PageText">
+      <li>AI behavior of the pursuing enemy</li>
+      <li>Encapsulated input and input manager to work with Unit input system</li>
+      <li>Saving game state and loading game state</li>
+      <li>Async level loading</li>
+      <li>Game states for different allowed input and behavior</li>
+    </ul>
+
+    <p class="ParagraphContent PageText">
+      The different game states for dealing with allowed input and logic were implemented using a polymorphic singleton pattern for each game state.
+
+      For game state changes the new game state singleton would be passed into a staic game state manger class.
+      
+      This would call clean up on the previous game state and call any set up for the new game state.
+
+      The entering and exit of different states woudl enable and disable input as well as pausing and unpausing game logic.
+
+      Along with managing the game state singletons this manager class also dealt with asynchronously loading into different scenes of the game.
+    </p>
+
+    <p class="ParagraphContent PageText">
+      One of the requirements for the development of the capstone projects was to use Unity's newer input system.
+
+      I created an input manager to deal with the enabling and assignment of the different input actions.
+
+      The input logic was encapsulated into input commands which also stored all relevant references and values for the input action.
+
+      This encapsulation made it easier to implement new input actions and helped reduce clutter in other classes.
+    </p>
+
+    <p class="ParagraphContent PageText">
+      AI for the enemy was does with a behavior tree which I had prior experience in using with Unreal Engine.
+
+      The nodes that composed the tree were BTTask, BTService, BTDecorator, and BTComposite which are all children of a base node class.
+
+      A BehaviorTree class would handle starting the tree execution as well as contain the blackboard keys and values to be access by the tree at any point of execution.
+
+      The BehaviorTree class did not hold any of the AI logic or tree construction, instead a separate AI class would handle the blackboard, node and tree construction.
+    </p>
+
+    <p class="ParagraphContent PageText">
+      The following image is a visual representqation of the behavior tree created in Unreal Engine purely for demonstration purpose and is not functional.
+    </p>
+
+    <img src="../images/HauntedElectricianBT.png" alt="Behavior Tree Visual"/>
+
+    <p class="ParagraphContent PageText">
+      Below is the actual construction of the behavior tree looked like in csharp. 
+      
+      This does not include the blackboard keys and the initializatin of their values.
+    </p>
+    
+    <pre>
+      //sequence
+      BTT_SetAgentChaseSpeed startRunning = new BTT_SetAgentChaseSpeed(patrollingBehaviorTree, chaseSpeed);
+      BTT_MoveToPosition moveToPlayer = new BTT_MoveToPosition(patrollingBehaviorTree, BlackboardKey.FollowingGameObject, chaseSpeed,acceptanceRadius);
+      BTT_CallMethodByName startAttack = new BTT_CallMethodByName(patrollingBehaviorTree, "Attack", new object[] { }, this, typeof(FollowingAI));
+      BTS_CopyOverValue setLastPlayerLocation = new BTS_CopyOverValue(patrollingBehaviorTree, 0.2f, BlackboardKey.FollowingGameObject, BlackboardKey.LastFollowingLocation);
+      BTC_Sequence followAndAttack = new BTC_Sequence("Follow And Attack Sequence", patrollingBehaviorTree, new List<Node>() { startRunning, moveToPlayer, startAttack }, new List<BTService>() { setLastPlayerLocation });
+      BTD_IsReachablePosition canReachPlayer = new BTD_IsReachablePosition(patrollingBehaviorTree, followAndAttack, BlackboardKey.FollowingGameObject, acceptanceRadius);
+
+      //task
+      BTT_StopFollowing stopFollowingPlayer = new BTT_StopFollowing(patrollingBehaviorTree);
+
+      //selector
+      BTC_Selector chasePlayerOrStop = new BTC_Selector("Chase Player, Stop If Unreachable", patrollingBehaviorTree, new List<Node>() { canReachPlayer, stopFollowingPlayer });
+      BTD_IsNotNull canSeePlayer = new BTD_IsNotNull(patrollingBehaviorTree, chasePlayerOrStop, BlackboardKey.FollowingGameObject);
+
+      //sequence
+      BTT_SetAgentChaseSpeed startWalking = new BTT_SetAgentChaseSpeed(patrollingBehaviorTree, chaseSpeed);
+      BTT_MoveToPosition moveToLastPlayerPosition = new BTT_MoveToPosition(patrollingBehaviorTree, BlackboardKey.LastFollowingLocation,chaseSpeed, acceptanceRadius);
+      BTD_IsReachablePosition lastPositionIsReachable = new BTD_IsReachablePosition(patrollingBehaviorTree, moveToLastPlayerPosition, BlackboardKey.LastFollowingLocation, acceptanceRadius);
+      BTD_IsNotNull lastPositionStillExists = new BTD_IsNotNull(patrollingBehaviorTree, lastPositionIsReachable, BlackboardKey.LastFollowingLocation);
+      BTD_NeverFail alwaysAttemptLastPosition = new BTD_NeverFail(patrollingBehaviorTree, lastPositionStillExists);
+      BTT_WaitForSeconds lookForPlayer = new BTT_WaitForSeconds(patrollingBehaviorTree, 1.0f);
+      BTT_SetNull clearLastPosition = new BTT_SetNull(patrollingBehaviorTree, BlackboardKey.LastFollowingLocation);
+      BTS_SetNullAfterInterval outOfSightOutOfMind = new BTS_SetNullAfterInterval(patrollingBehaviorTree, 3.0f, BlackboardKey.LastFollowingLocation);
+      BTC_Sequence searchForPlayerIfLastLocationKnown = new BTC_Sequence("Go To Last Player Position If Known", patrollingBehaviorTree, new List<Node>() { startWalking, alwaysAttemptLastPosition, lookForPlayer, clearLastPosition }, new List<BTService>() { outOfSightOutOfMind });
+      BTD_IsNotNull hasSearchedLastPlayerLocation = new BTD_IsNotNull(patrollingBehaviorTree, searchForPlayerIfLastLocationKnown, BlackboardKey.LastFollowingLocation);
+
+      //sequence
+      BTT_SetAgentChaseSpeed startPatrolling = new BTT_SetAgentChaseSpeed(patrollingBehaviorTree, walkSpeed);
+      BTT_CycleThroughList cycleToNextPatrolPoint = new BTT_CycleThroughList(patrollingBehaviorTree, BlackboardKey.PatrolPoints, BlackboardKey.NextPatrolPoint);
+      BTT_MoveToPosition moveToNextPatrolPoint = new BTT_MoveToPosition(patrollingBehaviorTree, BlackboardKey.NextPatrolPoint, walkSpeed,patrolAcceptanceRadius);
+      BTC_Sequence patrolMovementSequence = new BTC_Sequence("Patrol if point reachable", patrollingBehaviorTree, new List<Node>() { moveToNextPatrolPoint  });
+      BTD_IsReachablePosition canReachNextPatrolPoint = new BTD_IsReachablePosition(patrollingBehaviorTree, patrolMovementSequence, BlackboardKey.NextPatrolPoint, acceptanceRadius);
+      BTD_NeverFail alwaysAttemptNextPatrolPoint = new BTD_NeverFail(patrollingBehaviorTree, canReachNextPatrolPoint);
+      BTC_Sequence patrolMap = new BTC_Sequence("Patrol Map Sequence", patrollingBehaviorTree, new List<Node>() { startPatrolling, cycleToNextPatrolPoint, alwaysAttemptNextPatrolPoint/*, stopAtPatrolPoint*/ });
+      BTD_IsNull patrolIfPlayerLocationNotKnown = new BTD_IsNull(patrollingBehaviorTree, patrolMap, BlackboardKey.FollowingGameObject);
+
+      //selector
+      BTS_SetObjectIfSeen setPlayerPositionIfVisible = new BTS_SetObjectIfSeen(patrollingBehaviorTree, 0.2f, BlackboardKey.FollowingGameObject);
+      BTC_Selector patrolAndLookForPlayer = new BTC_Selector("Patrol And Look For Player", patrollingBehaviorTree, new List<Node>() { canSeePlayer, hasSearchedLastPlayerLocation, patrolIfPlayerLocationNotKnown }, new List<BTService>() { setPlayerPositionIfVisible });
+      BTD_IsNotTrue notInFlashLight = new BTD_IsNotTrue(patrollingBehaviorTree, patrolAndLookForPlayer, BlackboardKey.ReactingToFlashlight);
+
+      //seqeuence
+      BTT_StopFollowing stopAndBurn = new BTT_StopFollowing(patrollingBehaviorTree);
+      BTT_SetNull forgetPlayer = new BTT_SetNull(patrollingBehaviorTree, BlackboardKey.FollowingGameObject);
+      BTT_SetNull dontSearch = new BTT_SetNull(patrollingBehaviorTree, BlackboardKey.LastFollowingLocation);
+      BTT_SetBlackboardToValue deagro = new BTT_SetBlackboardToValue(patrollingBehaviorTree, BlackboardKey.Attacking, false);
+      BTT_SetBlackboardToValue setStunTime = new BTT_SetBlackboardToValue(patrollingBehaviorTree, BlackboardKey.StunTime, 5.0f);
+      BTT_CallMethodByName getShinedDirection = new BTT_CallMethodByName(patrollingBehaviorTree, "GetSearchPosition", new object[] { }, this, typeof(FollowingAI));
+      BTT_SetBlackboardToValue removeShinedStatus = new BTT_SetBlackboardToValue(patrollingBehaviorTree, BlackboardKey.InFlashLightBeam, false);
+      BTC_Sequence reactToFlashlight = new BTC_Sequence("React to flashlight", patrollingBehaviorTree, new List<Node>() { stopAndBurn, forgetPlayer, dontSearch, deagro, setStunTime, getShinedDirection, removeShinedStatus });
+      BTD_IsTrue isInFlashlight = new BTD_IsTrue(patrollingBehaviorTree, reactToFlashlight, BlackboardKey.InFlashLightBeam);
+
+      //sequence
+      BTT_WaitForSeconds burnWait = new BTT_WaitForSeconds(patrollingBehaviorTree, 1.0f);
+      BTT_CallMethodByName decrementStun = new BTT_CallMethodByName(patrollingBehaviorTree, "DecrementStun", new object[] { }, this, typeof(FollowingAI));
+      BTC_Sequence stunSequence = new BTC_Sequence("Stun Sequence", patrollingBehaviorTree, new List<Node>() { burnWait, decrementStun });
+      BTD_EvaluateFloatCondition stunGreaterThanZero = new BTD_EvaluateFloatCondition(patrollingBehaviorTree, stunSequence, BlackboardKey.StunTime, BlackboardKey.Epsilon, ERelationalOperator.GreaterThan);
+      BTD_IsNotTrue isNotInFlashlight = new BTD_IsNotTrue(patrollingBehaviorTree, stunGreaterThanZero, BlackboardKey.InFlashLightBeam);
+      BTD_Repeater loopStun = new BTD_Repeater(patrollingBehaviorTree, isNotInFlashlight);
+      BTD_NeverFail loopTilFail = new BTD_NeverFail(patrollingBehaviorTree, loopStun);
+
+      //sequence
+      BTT_SetAgentChaseSpeed startInvestigating = new BTT_SetAgentChaseSpeed(patrollingBehaviorTree, walkSpeed);
+      BTT_MoveToPosition searchLight = new BTT_MoveToPosition(patrollingBehaviorTree, BlackboardKey.SearchPosition, walkSpeed,2.0f);
+      BTT_WaitForSeconds investigateLight = new BTT_WaitForSeconds(patrollingBehaviorTree, 2.0f);
+      BTS_SetObjectIfSeen searchForPlayerWhereLightShined = new BTS_SetObjectIfSeen(patrollingBehaviorTree, 0.2f, BlackboardKey.FollowingGameObject);
+      BTC_Sequence investigateSequence = new BTC_Sequence("Investigate flashlight", patrollingBehaviorTree, new List<Node>() { startInvestigating, searchLight, investigateLight },new List<BTService> { searchForPlayerWhereLightShined });
+      BTD_IsNull seachWhileCantSeePlayer = new BTD_IsNull(patrollingBehaviorTree, investigateSequence, BlackboardKey.FollowingGameObject);
+
+      //task
+      BTT_SetBlackboardToValue stopReactionFallBack = new BTT_SetBlackboardToValue(patrollingBehaviorTree, BlackboardKey.ReactingToFlashlight, false);
+
+      //selector
+      BTC_Selector stopReactingSelectorFallback = new BTC_Selector("StopReactingSelectorFallBack", patrollingBehaviorTree, new List<Node> { seachWhileCantSeePlayer, stopReactionFallBack });
+
+      //task
+      BTT_SetBlackboardToValue stopReaction = new BTT_SetBlackboardToValue(patrollingBehaviorTree, BlackboardKey.ReactingToFlashlight, false);
+
+      //sequence
+      BTC_Sequence sequence01 = new BTC_Sequence("sequence01", patrollingBehaviorTree, new List<Node>() { loopTilFail, stopReactingSelectorFallback, stopReaction });
+      BTD_IsNotTrue isNotInFlashlight_sequence01 = new BTD_IsNotTrue(patrollingBehaviorTree, sequence01, BlackboardKey.InFlashLightBeam);
+
+      //sequence
+      BTC_Sequence burnThenInvestigate = new BTC_Sequence("Flashlight burn and Investigate", patrollingBehaviorTree, new List<Node>() { isInFlashlight, isNotInFlashlight_sequence01 });
+
+      //selector
+      BTC_Selector patrolFollowOrBurn = new BTC_Selector("Patrol And Follow Or Burn In Light", patrollingBehaviorTree, new List<Node>() { notInFlashLight, burnThenInvestigate });
+
+      //selector
+      BTC_Selector selectorNode = new BTC_Selector("Root Selector", patrollingBehaviorTree, new List<Node>() { patrolFollowOrBurn });
+    </pre>
 
   </body>
 </html>

@@ -11,7 +11,7 @@
   </head>
   
   <body onload="PopulatePageBar('..')">
-    <h1 class="PopOutParagraph">Python Scripts In Unreal</h1>
+    <h1 class="PageHeading PageText">Python Scripts In Unreal</h1>
     
 
       <ul id="PageBar">
@@ -23,41 +23,33 @@
       </div>
     
       <p class="ParagraphContent PageText">
-        year: 2022
 
--originally inspired to attempt this from another youtube video
-https://www.youtube.com/watch?v=HELDYdr5i4Q&ab_channel=NicolasBrack
 
--found the website the models were retrieved from mecabricks.com
--easy to download from website and import models into unreal engine
--problem was that each lego brick was its own individual mesh
-	with a local offset from the origin that coincided to its location
-	on the lego set
--resonable enough although every lego brick has its own material
--no master material and material instances even for materials of the same color
+This small project was originally inspired by another youtube <a href="https://www.youtube.com/watch?v=HELDYdr5i4Q&ab_channel=NicolasBrack">video</a>. 
 
--the reason this was important to me was because I wanted to add custom imperfections
-	to the lego bricks
--originally thought i would have to bake a blender imperfection shader into a texture
-	to apply to the bricks since the website had an imperfection shader that could be
-	used to render models inside of blender
--I would soon find out this was impractical since i would be baking textures for 
-	thousands of individuals models that make up the lego set
 
--after some more researching i remembered hearing about Unreal Engines python
-	API that could be used to automate some process
--using the python api i was able to write some scripts to help deal with the thousands
-	of individual static meshes
--most notable use was a script that would consolidate materials of similar color into
-	a single material instance of a master material which i then used as an imperfection
-	material
+I wanted try and recreate the realistic rendering that was being done with the legos in the youtube video so i set out to try and recreate it.
 
--the script is relativly straight forward
--takes list of all selected object in editor and casts to static mesh to retieve a list of
-	all the materials being used in the list of meshes
--then given a master material it will create a new instance and apply either the diffuse
-	color or the material texture then apply it to the static mesh of the
-	associated material
+First I found the website the models were retrieved from mecabricks.com which made it easy to download different models and import them into Unreal Engine.
+
+I originally thought the material on the lego bricks were being accomplished by baking in a procedural material in blender that was included on the mecabricks website into the separate bricks.
+
+This was unrealistic since each lego brick was its own individual mesh with a local offset from the origin that coincided to its location on the lego set.
+
+I tried joining all the bricks together as a single mesh in blender but there was  complications with each brick being a different color and then trying to bake it when its a single mesh so i didn't succeed with this approach.
+
+When approaching the problem from inside Unreal Engine the problem became more complicated since each individual brick had its own material regardless as to whether they shared colors with other bricks and there could be thousands of bricks at a time depending on the lego set.
+
+I knew i needed to have a master material for the imperfections and then instance which could adjust the material color based on a parameter but i also couldn't do this manually with thousands of static meshes.
+
+After some more researching i remembered hearing about Unreal Engines python API that could be used to automate some processes>
+
+I then utilized to api to create a colloection of all the materials of selected static meshes, create a material instance of a imperfection material, set the material instance base color or texture based on the materials in the collection and then set the newly created material to the associated static mesh.
+
+This script would allow me to import any mesh i wanted from the website and then give it imperfections in seconds by just running a script.
+
+Looking back on the script though it does seem i used the property matrix to change the multiple uses of different materials of the same color into a single material which would help speed up the process of the script. Although, this could easily be done with a separate python script and then these two scripts could be run one after another.
+
 
       </p>
 
