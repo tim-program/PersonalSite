@@ -22,19 +22,19 @@
         </iframe>
       </div>
     <p class="ParagraphContent PageText">
-      The capstone semester course at Ohio State University for the computer graphics and game design track breaks student in group, mine being composed of four individuals including me, to create a game in Unity.
+      The capstone semester course at Ohio State University for the computer graphics and game design track breaks students into groups, mine being composed of four individuals including me, to create a game in Unity.
 
       Haunted Electrician, the game my group created, had the player act as an electrician trying to restore power to a haunted mansion in order to escape.
 
-      Throughout the game the player would solve puzzles, read notes of previous events that took place in the mansion, and be continuously pursued by an enemy.
+      Throughout the game the player would solve puzzles and read notes of previous events that took place while being continuously pursued by an enemy.
 
-      The final product of the game at the end of the semester had all the original ideas for the game realized but I believe more time would have allowed for needed polished to get the intended experience.
+      The final version of the game at the end of the semester had all the original ideas for the game realized but I believe more time would have allowed for needed polished to get the intended experience.
 
     </p>
 
     
 
-    <h2 class="PageSubtitle PageText">Responsibilities buring development:</h2>
+    <h2 class="PageSubtitle PageText">Responsibilities during development:</h2>
 
     <ul class="PageListing PageText">
       <li>AI behavior of the pursuing enemy</li>
@@ -49,17 +49,19 @@
 
       For game state changes the new game state singleton would be passed into a staic game state manger class.
       
-      This would call clean up on the previous game state and call any set up for the new game state.
+      This would call clean up the previous game state and call any set up for the new game state.
 
-      The entering and exit of different states woudl enable and disable input as well as pausing and unpausing game logic.
+      The entering and exit of different states would enable and disable input as well as pausing and unpausing game logic.
 
       Along with managing the game state singletons this manager class also dealt with asynchronously loading into different scenes of the game.
+
+      The function dealing with asynchronous loading of scenes could also be passed a game state singleton to allow quick transition from a main menu state into the playable game state.
     </p>
 
     <p class="ParagraphContent PageText">
-      One of the requirements for the development of the capstone projects was to use Unity's newer input system.
+      One of the requirements for the development of the capstone project was to use Unity's newer input system.
 
-      I created an input manager to deal with the enabling and assignment of the different input actions.
+      An input manager was created to deal with the enabling and assignment of the different input actions.
 
       The input logic was encapsulated into input commands which also stored all relevant references and values for the input action.
 
@@ -67,23 +69,25 @@
     </p>
 
     <p class="ParagraphContent PageText">
-      AI for the enemy was does with a behavior tree which I had prior experience in using with Unreal Engine.
+      AI for the enemy was does with a behavior tree which I had prior experience using in Unreal Engine.
 
       The nodes that composed the tree were BTTask, BTService, BTDecorator, and BTComposite which are all children of a base node class.
 
-      A BehaviorTree class would handle starting the tree execution as well as contain the blackboard keys and values to be access by the tree at any point of execution.
+      A BehaviorTree class would handle the start of the tree execution as well as contained the blackboard keys and values to be accessed by the tree at any point of execution.
 
       The BehaviorTree class did not hold any of the AI logic or tree construction, instead a separate AI class would handle the blackboard, node and tree construction.
+
+      The navigation for the ai was done with the provided navigation package.
     </p>
 
     <p class="ParagraphContent PageText">
-      The following image is a visual representqation of the behavior tree created in Unreal Engine purely for demonstration purpose and is not functional.
+      The following image is a visual representation of the behavior tree created in Unreal Engine purely for demonstration purpose and is not functional.
     </p>
 
     <img src="../images/HauntedElectricianBT.png" alt="Behavior Tree Visual"/>
 
     <p class="ParagraphContent PageText">
-      Below is the actual construction of the behavior tree looked like in csharp. 
+      Below is the actual construction of the behavior tree in csharp. 
       
       This does not include the blackboard keys and the initializatin of their values.
     </p>

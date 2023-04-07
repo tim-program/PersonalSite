@@ -28,27 +28,31 @@
 This small project was originally inspired by another youtube <a href="https://www.youtube.com/watch?v=HELDYdr5i4Q&ab_channel=NicolasBrack">video</a>. 
 
 
-I wanted try and recreate the realistic rendering that was being done with the legos in the youtube video so i set out to try and recreate it.
+I wanted try and recreate the realistic rendering that was being done with the legos in the youtube video.
 
-First I found the website the models were retrieved from mecabricks.com which made it easy to download different models and import them into Unreal Engine.
+First I found the <a href="https://www.mecabricks.com/">website</a> where the models were retrieved from which enabled me to download different models and import them into Unreal Engine.
 
-I originally thought the material on the lego bricks were being accomplished by baking in a procedural material in blender that was included on the mecabricks website into the separate bricks.
+I originally thought the material on the lego bricks from the video was being accomplished by baking a procedural blender shader that was included on the website.
 
 This was unrealistic since each lego brick was its own individual mesh with a local offset from the origin that coincided to its location on the lego set.
 
-I tried joining all the bricks together as a single mesh in blender but there was  complications with each brick being a different color and then trying to bake it when its a single mesh so i didn't succeed with this approach.
+I tried joining all the bricks together into a single mesh in blender but there were complications that prevented it from being a viable solution.
 
-When approaching the problem from inside Unreal Engine the problem became more complicated since each individual brick had its own material regardless as to whether they shared colors with other bricks and there could be thousands of bricks at a time depending on the lego set.
+When approaching the problem from inside Unreal Engine the problem became more complicated since each individual brick had its own material regardless as to whether they shared colors with other bricks.
 
-I knew i needed to have a master material for the imperfections and then instance which could adjust the material color based on a parameter but i also couldn't do this manually with thousands of static meshes.
+There could also be thousands of bricks at a time depending on the lego set.
 
-After some more researching i remembered hearing about Unreal Engines python API that could be used to automate some processes>
+I knew i needed to have a master material for the imperfections and then instances which could adjust the material's color based on a parameter but i also could not do this manually with thousands of static meshes.
 
-I then utilized to api to create a colloection of all the materials of selected static meshes, create a material instance of a imperfection material, set the material instance base color or texture based on the materials in the collection and then set the newly created material to the associated static mesh.
+After some more researching i remembered hearing about Unreal Engines python API that could be used to automate some processes.
 
-This script would allow me to import any mesh i wanted from the website and then give it imperfections in seconds by just running a script.
+I used the Unreal Engine python api to create a colloection of all the materials of selected static meshes, create a material instance of a imperfection material, set the material instance base color or texture based on the materials in the collection and then set the newly created material to the associated static mesh.
 
-Looking back on the script though it does seem i used the property matrix to change the multiple uses of different materials of the same color into a single material which would help speed up the process of the script. Although, this could easily be done with a separate python script and then these two scripts could be run one after another.
+This script would allow me to import any mesh i wanted from the website and then give it imperfections in seconds by running a single script.
+
+Looking back on the script it seems i used the property matrix to change the multiple uses of different materials of the same color into a single material.
+
+Although, this could easily be done with a separate python script and then these two scripts could be run one after another.
 
 
       </p>
