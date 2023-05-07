@@ -24,12 +24,13 @@
 
     <p class="ParagraphContent PageText">
       
-      In a recent Unreal Engine project of mine i wanted to try utilizing octrees and found that unreal engine has some available octree data types.
+      In a recent Unreal Engine project of mine I wanted to try utilizing octrees and found that unreal engine has some available octree data types.
 
-      Although the resources i found for implementing octrees were for the previous depricated version. 
+      Although the resources I found for implementing octrees were for the previous deprecated version. 
 
-      Creation of the octree datatype in the header file is identical to the depricated version.
+      Creation of the octree datatype in the header file is identical to the deprecated version.
     
+
       </p>
       
       <pre>
@@ -101,11 +102,12 @@
     </pre>
 
     <p class="ParagraphContent PageText">
-      Iterating through the elements and nodes is where TOctree2 deviates from the previous depricated version.
+      Iterating through the elements and nodes is where TOctree2 deviates from the previous deprecated version.
 
-      In order to iterate through the elements and nodes of the octrees lambdas are passed into member methods which handles the itteration.
+      In order to iterate through the elements and nodes of the octrees lambdas are passed into member methods which handles the iteration.
 
       One lambda is a predicate to indicate what nodes/elements to work with and a second lambda which operates on the nodes/elements.
+
     </p>
 
       <pre>
@@ -156,11 +158,12 @@
       </pre>
       
       <p class="ParagraphContent PageText">
-      I've never made an octree myself but a variable called LoosenessDenominator exists within the FOctreeNodeContext class.
+        I've never made an octree myself, but a variable called LoosenessDenominator exists within the FOctreeNodeContext class.
 
-      This extends octree nodes past there exact extents (provide picture of comparison) and increasing the variable past its default value of 16 improves the tightness of the octree nodes.
-      
-      Quickest way i found to change this was by manually editing GenericOctree.h where it is located and rebuilding.
+        This extends octree nodes past their exact extents (provide picture of comparison) and increasing the variable past its default value of 16 improves the tightness of the octree nodes.
+        
+        The quickest way I found to change this was by manually editing GenericOctree.h where it is located and rebuilding.
+  
         
       </p>
       

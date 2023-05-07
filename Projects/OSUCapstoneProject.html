@@ -69,15 +69,16 @@
     </p>
 
     <p class="ParagraphContent PageText">
-      AI for the enemy was does with a behavior tree which I had prior experience using in Unreal Engine.
+      AI for the enemy was done with a behavior tree which I had prior experience using in Unreal Engine.
 
       The nodes that composed the tree were BTTask, BTService, BTDecorator, and BTComposite which are all children of a base node class.
 
       A BehaviorTree class would handle the start of the tree execution as well as contained the blackboard keys and values to be accessed by the tree at any point of execution.
 
-      The BehaviorTree class did not hold any of the AI logic or tree construction, instead a separate AI class would handle the blackboard, node and tree construction.
+      The BehaviorTree class did not hold any AI logic or tree construction, instead a separate AI class would handle the blackboard, node and tree construction.
 
       The navigation for the ai was done with the provided navigation package.
+
     </p>
 
     <p class="ParagraphContent PageText">
@@ -89,7 +90,7 @@
     <p class="ParagraphContent PageText">
       Below is the actual construction of the behavior tree in csharp. 
       
-      This does not include the blackboard keys and the initializatin of their values.
+      This does not include the blackboard keys and the initialization of their values.
     </p>
     
     <pre>
