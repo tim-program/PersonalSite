@@ -27,7 +27,7 @@ function PopulatePageBar(LinkPrefix){
     var htmlLinkBar = "<a href=\""+LinkPrefix+"\\index.html\"><li class=\""+listingClass+"\">Timothy Deutsch</li></a>\n" +
     "<a href=\""+LinkPrefix+"\\projects.html\"><li class=\""+listingClass+"\">Projects</li></a>\n" +
     "<a href=\""+LinkPrefix+"\\blog.html\"><li class=\""+listingClass+"\">Blog</li></a>\n" +
-    "<a href=\""+LinkPrefix+"\\TimothyDeutschResumeRevising.pdf\"><li class=\""+listingClass+"\">Resume (revising)</li></a>\n";
+    "<a href=\""+LinkPrefix+"\\TimothyDeutschResume.pdf\"><li class=\""+listingClass+"\">Resume (revising)</li></a>\n";
 
     var pageBarElement = document.getElementById("PageBar");
     pageBarElement.innerHTML += htmlLinkBar;

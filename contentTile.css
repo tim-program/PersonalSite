@@ -2,14 +2,17 @@ a{
   text-decoration: none;
 }
 
+
+
 div.ProjectContainer{
     /*background-color: rgb(36, 36, 36);*/
     position: relative;
     width: 75%;
     margin:0 auto; 
     overflow: auto;
+
   }
-  
+
   div.ProjectTitleTile{
     display: block;
     position: relative;
@@ -18,8 +21,15 @@ div.ProjectContainer{
     padding: 10px;
     margin: 10px;
     display: inline-block;
+    box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    
+    transition:all .1s ease-in-out;
   }
-  
+
+  div.ProjectTitleTile:hover{
+    transform:scale(1.02);
+  }
+
   div.ProjectTitleTile p{
     text-align: left;
     position:absolute;

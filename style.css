@@ -11,12 +11,37 @@ a:hover{
   color:#b4d0bd;
 }
 
+html{
+  background-color:#1a2921;
+  height:100vh;
+}
 
 body {
-  margin: 0;
+  height:100%;
+  max-width: 960px;
+  margin-top:0px;
+  margin-bottom:0px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top:1rem;
   background: #41514b;
   text-align: center;
+  
 }
+
+/*
+footer{
+  background: rgba(45, 17, 17, 0);
+  color:white;
+  width:100%;
+  height: 100px;
+  position: fixed;
+  bottom: 0;
+  left:0;
+  padding-left: 2rem;
+  text-align: left;
+}
+*/
 
 .PageText{
   color:#edefe7;
@@ -104,6 +129,7 @@ pre {
   padding: 1em 1.5em;
   display: block;
   margin: auto;
+  font-family: "Lucida Console", "Courier New", monospace;
 }
 
 div.IframeContainer{
