@@ -1,30 +1,43 @@
-
-a:link{
-  color:#b4d0bd;
-}
-
-a:visited{
-  color:#b4d0bd;
-}
-
-a:hover{
-  color:#b4d0bd;
-}
-
+/*Color Scheme*/
 html{
-  background-color:#1a2921;
-  height:100vh;
+  background-color:#1d1d1d;
 }
 
+body{
+  background: #000000;
+  box-shadow: 0 6px 10px 10px rgba(0, 255, 4, 0.2);
+}
+
+a:link, a:visited, a:hover{
+  color:#000000;
+}
+
+pre, img, div.IframeContainer iframe{
+  border-color: #00ff00;
+}
+
+.LinkTile{
+  border: 1px solid #00ff00;
+  background-color: #000000;
+}
+
+.PageText{
+  color:#ffffff;
+}
+
+
+/*the rest*/
 body {
-  height:100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  height:auto;
   max-width: 960px;
   margin-top:0px;
   margin-bottom:0px;
   margin-left: auto;
   margin-right: auto;
   padding-top:1rem;
-  background: #41514b;
   text-align: center;
   
 }
@@ -43,9 +56,6 @@ footer{
 }
 */
 
-.PageText{
-  color:#edefe7;
-}
 
 
 
@@ -79,7 +89,8 @@ p.ParagraphContent{
   text-align:left;
   text-indent: 50px;
   align-items: center;
-  margin: auto;
+  margin-left: auto;
+  margin-right:auto;
   width: 70%;
   padding: 2rem;
   font-size:20px;
@@ -104,17 +115,14 @@ p.ParagraphContent{
   overflow-y: hidden;
 }
 
-.LinkTile{
-  border: 1px solid #b4d0bd;
-  background-color: #475456;
-}
+
 
 
 pre {
   color: #f4f4f4;
   /*border: 5px solid #5D2B90;*/
-  border:2px solid #b4d0bd;
-  
+  border-width: 2px;
+  border-style:solid;
 
   background: #444;
   page-break-inside: avoid;
@@ -146,7 +154,8 @@ div.IframeContainer iframe{
   width: 80%;
   height: 80%;
   background:url(images/Untitled.png) center center no-repeat;
-  border:2px solid #b4d0bd;
+  border-width: 2px;
+  border-style: solid;
 
 }
 
@@ -154,7 +163,8 @@ img{
   max-width: 80%;
   max-height: 80%;
   margin:auto;
-  border: 2px solid #b4d0bd;
+  border-width: 2px;
+  border-style: solid;
 }
 
 @media only screen and (min-width:1215px){

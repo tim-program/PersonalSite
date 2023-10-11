@@ -1,3 +1,5 @@
+
+
 function LoadJsonContentByType(ContentType){
     var jsonContent = getProjectJson("./projects.json");
     jsonContent.then((data) => JsonToHtmlListings(data,ContentType));
@@ -52,3 +54,5 @@ function CreateHtmlStringFromDetails(ContentType,ListingName,Title,Description,Y
 
     return htmlString;
 }
+
+  

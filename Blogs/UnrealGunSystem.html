@@ -16,8 +16,191 @@
 
       <ul id="PageBar">
         </ul>
-      <img src="../images/octree.png" alt="octree image"/>
-    <p class="ParagraphContent PageText">Gun system with components, factory, flyweight. To Be Posted</p>
+     <!-- <img src="../images/octree.png" alt="octree image"/>-->
+
+    <p class="ParagraphContent PageText">
+      The Following is a simaple and flexible gun system made in Unreal Engine using C++.
+      I wanted to start a long term project that would be played withing the FPS medium.
+      First approaching this project i wanted to create one fleshed out portion at a time so I would be able to demo complete work on my blog.
+      After working on this gun system i found that this approach is not ideal.
+      In order to not have wasted time I have decided to put what I have completed on my blog and continue with development.
+      Going forward I want to work on simple prototype components and build them up together as I progress through my development.
+    </p>
+
+    <p class="ParagraphContent PageText">
+      When first making the gun system I used a basic object oriented approach with a parent gun class and an assortment of child gun classes based on varied functionality.
+      Progressing through development I would realize this approach would become difficult with overlapping functionality in some weapons.
+      If I want to add and automatic weapon I would create a child class but then If I wanted to distinguish between a hitscan weapon and projectile weapons there would be two different automatic weapon classes.
+      I began to realize how undesirable a chain of object oriented classes would become with its increasing difficult to manage and add changes.
+      The object oriented approach was scrapped and replaced with something more flexible.
+    </p>
+
+    <p class="ParagraphContent PageText">
+      I needed to have a variety of weapons with different functionality but each separate gun functionality is decoupled from each other.
+      Decided to use a data driven design approach with components for the different gun functionality which would be attached to a single gun base class.
+      Each gun would be an entry in a data table which would hold different gun stats and the components used to create the gun.
+    </p>
       
+      <h2 class="PageSubtitle PageText"> Gun Components:</h2>
+      <ul class="PageListing PageText">
+        <li>Reciever</li>
+        <li>Magazine</li>
+        <li>Projectile</li>
+      </ul>
+
+      <p class="ParagraphContent PageText">
+        The reciever would handle the gun firing behavior whenever a trigger is pulled or released.
+        The weapon firing behavior would be a single method stored in the base class and passed as a delegate to the reciever.
+      </p>
+      <pre>
+GunReciever->TriggerPulled(GunFireDelegate)
+      </pre>
+
+      <p class="ParagraphContent PageText">
+        The projectile component would be invoked from within the gun fire method of the base class.
+      </p>
+      <pre>
+GunProjectile->FireProjectile()
+      </pre>      
+
+      <p class="ParagraphContent PageText">
+        The Gun magazine component would handle reloading along with other checks needed to be done throughout the gun base class.
+        The main need for different magazine components was to deal with single bullet fed weapons and action based weapons.
+      </p>
+
+      <p class="ParagraphContent PageText">
+        When doing the creation process from the gun data stored in the data table I found it difficult to manager references to the table in c++.
+        After some search I learned about how I could replace the data table with Data Assets and utilize the asset manager to solve my problems.
+        Had one Data Asset to hold all relevant animation related data for a weapon then a main Data Asset for each weapon to be made into an actor.
+      </p>
+
+      <p class="ParagraphContent PageText">
+        This approach of using the gun Data Assets allows me to store the unchanging data relating to a specific gun inside its gun Data Asset.
+        After switch to the using the Data Asset throughout the c++ file I was then able to remove duplicate local variable inside the gun actors header.
+        The utilization of the gun data was analogous to the flyweight pattern and would help reduce the size of the gun actors espcially if duplicate gun actors exist in the scene.
+      </p>
+
+      <p class="ParagraphContent PageText">
+        In order to construct guns at runtime I created a gun factory class using an unreal subsystem class that was attached to the life time of the game instance.
+       With this I would be able to decouple all pre-initialization operations, such as setting the gun Data Asset before actor BeginPlay, into one class.
+      </p>
+      <pre>
+        AGunBase* NewWeapon = GunFactory->SpawnGun(GunDataAsset);
+
+      </pre>
+<!--
+    <pre>
+      The following is a simple and flexible gun system made in Unreal Engine using c++
+      I wanted to start a long term project that wanted to be within the FPS medium
+      -approach was to create a fleshed out portion, demo on website blog, realized approach would was not the best
+      -put current fps portion on blog for sake of not letting time be wasted
+      -continue with prototype puzzle pieces that fit togehter 
+      "The Following is a simaple and flexible gun system made in Unreal Engine using C++.
+      I wanted to start a long term project that would be played withing the FPS medium.
+      First approaching this project i wanted to create one fleshed out portion at a time so I would be able to demo complete work on my blog.
+      After working on this gun system i found that this approach is not ideal.
+      In order to not have wasted time I have decided to put what I have completed on my blog and continue with development.
+      Going forward I want to work on simple prototype components and build them up together as I progress through my development.
+      "
+
+      when first making the gun system i used basic object oriented principles with a gun base
+      -comprised of basic functional methods such as shot reload and aim
+      -for automatic and burst fire weapons separate classes would be created
+      -thought of other child classes
+      -pump action might need another separate class
+      -if want weapons to shot projectiles instead of hitscan would i then need hitscan and projectile weapon
+      classes and then create child gun type classes from them
+      -realized how undesirable a chain of object oriented class is and redesigned the gun system to be more flexible
+      "When first making the gun system I used a basic object oriented approach with a parent gun class and an assortment of child gun classes based on varied functionality.
+      Progressing through development I would realize this approach would become difficult with overlapping functionality in some weapons.
+      If I want to add and automatic weapon I would create a child class but then If I wanted to distinguish between a hitscan weapon and projectile weapons there would be two different automatic weapon classes.
+      I began to realize how undesirable a chain of object oriented classes would become with its increasing difficult to manage and add changes.
+      The object oriented approach was scrapped and replaced with something more flexible. 
+      "
+
+
+      Needed to have variety of weapons with different functionality but each separate gun functionality is decoupled from each other
+      -decieded on data driven design approach, gun components with a base gun class
+      -each gun would have a data table entry to hold what gun should be created,gun components attached based on gun data
+      -Comopnents: reciever, Magazine, and projectile
+      -reciever used for gun firing,passed fire delegate in base gun class
+
+        GunReciever->TriggerPulled(GunFireDelegate)
+
+      -projectile called from gun fire delegate
+
+        GunProjectile->FireProjectile()
+
+      -gun magazine is used throughout gun base where necessary for ammo checks, manages ammo
+      "
+      I needed to have a variety of weapons with different functionality but each separate gun functionality is decoupled from each other.
+      Decided to use a data driven design approach with components for the different gun functionality which would be attached to a single gun base class.
+      Each gun would be an entry in a data table which would hold different gun stats and the components used to create the gun.
+      Current Gun Components:
+        - Reciever
+        - Magazine
+        - Projectile
+
+      The reciever would handle the gun firing behavior whenever a trigger is pulled or released.
+      The weapon firing behavior would be a single method stored in the base class and passed as a delegate to the reciever.
+
+          GunReciever->TriggerPulled(GunFireDelegate)
+
+      The projectile component would be invoked from within the gun fire method of the base class.
+      
+          GunProjectile->FireProjectile()
+
+      The Gun magazine component would handle reloading along with other checks needed to be done throughout the gun base class.
+      The main need for different magazine components was to deal with single bullet fed weapons and action based weapons.
+      "
+
+
+      -when doing the creation proecess fron the gun data stored in data table found it difficult to manage references to it
+      -found unreal Data Assets and asset manager
+      -switch from data table to Data Assets
+      -had Data Asset for all gun animation and model relevant data, main Data Asset to hold anim data and component/stat data
+      "
+      When doing the creation process from the gun data stored in the data table I found it difficult to manager references to the table in c++.
+      After some search I learned about how I could replace the data table with Data Assets and utilize the asset manager to solve my problems.
+      Had one Data Asset to hold all relevant animation related data for a weapon then a main Data Asset for each weapon to be made into an actor.
+
+      "
+
+      -approach allows to store unchanging data related to a specific gun inside its gun Data Asset 
+      -then able to remove all gun data variables and just have one ref of gun Data Asset which can be shared by mutiple actors of same gun
+      -very much like flyweight, helps conserve RAM 
+      "
+      This approach of using the gun Data Assets allows me to store the unchanging data relating to a specific gun inside its gun Data Asset.
+      After switch to the using the Data Asset throughout the c++ file I was then able to remove duplicate local variable inside the gun actors header.
+      The utilization of the gun data was analogous to the flyweight pattern and would help reduce the size of the gun actors espcially if duplicate gun actors exist in the scene.
+      
+      "
+
+      -making guns done with unreal subsystem attached to life time of game instance
+
+        GunFactory->SpawnGun(GunDataAsset)
+
+      "
+      In order to construct guns at runtime I created a gun factory class using an unreal subsystem class that was attached to the life time of the game instance.
+      With this I would be able to decouple all pre-initialization operations, such as setting the gun Data Asset before actor BeginPlay, into one class.
+      
+        AGunBase* NewWeapon = GunFactory->SpawnGun(GunDataAsset);
+      "
+
+      process (outline 1)
+      -start OOP
+      -switch to components (components)
+      -store relavent data in Data Assets (data driven?)
+      -separate Data Assets for gun anims
+      -Unreal subsystem gun factory (factory)
+      -custom console to spawn guns with factory since gun Data Assets are in asset manager 
+        -actually using spawn actor to create gun in console currently (maybe change)
+      -custom player movement component for movement states
+      
+      -maybe demo addition of new weapon
+    </pre>
+  -->
+
+  
   </body>
 </html>

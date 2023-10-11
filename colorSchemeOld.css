@@ -1,0 +1,30 @@
+html{
+    background-color:#1a2921;
+  }
+  
+  body{
+    background: #41514b;
+    
+  }
+  
+  a:link, a:visited, a:hover{
+    color:#b4d0bd;
+  }
+  
+  pre, img, div.IframeContainer iframe{
+    border-color: #b4d0bd;
+  }
+  
+  .LinkTile{
+    border: 1px solid #b4d0bd;
+    background-color: #475456;
+  }
+  
+  .PageText{
+    color:#edefe7;
+  }
+  
+  div.ProjectTitleTile{
+    box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    
+  }
