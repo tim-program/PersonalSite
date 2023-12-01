@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="../style.css" />
+    <title>Tim's Site</title>
+    <link rel="shortcut icon" href="#"/>
+    <script type="text/javascript" src="../ContentLoader.js"></script>
+  </head>
+  
+  <body onload="PopulatePageBar('..')">
+    <h1 class="PageHeading PageText">PSX Zombies</h1>
+    
+
+      <ul id="PageBar">
+        </ul>
+
+      <div class="IframeContainer">
+        <iframe src="https://www.youtube.com/embed/wH4AxiYS7OA" frameborder="0" allowfullscreen>
+        </iframe>
+      </div>
+
+      <p class="ParagraphContent PageText">This project is currently a work in progress. 
+
+        All that is presently available is a blockout of a map along with unmodeled and untextured actors but
+        with most of the behavior in places.
+      
+        Since it is still being worked on this page will most likely be updated or completely changed in the
+        future with completed models, updated features, or a change in focus of the project entirely.</p>
+
+      <p class="ParagraphContent PageText">
+        PSX Zombies is mean as a small side project to demonstrate the 
+        <a href="../Blogs/UnrealGunSystem.html">gun system</a> I previously developed. 
+
+        The project is a recreation of the Call of Duty: World at War zombies gamemode. 
+
+        It involves the player fighting off waves of zombies within the confines of a somewhat
+        small map till the player dies from being overrun with enemies. 
+
+        Most of the mechanics have been recreated except for the perk system, throwables, 
+        and upgradable weapons. 
+
+        The graphics style has been changed to a psx style to make it easier to find online assets and 
+        create custom animations and models.
+      </p>
+
+      <h2 class="PageSubtitle PageText">Main Points of Development:</h2>
+
+      <ul class="PageListing PageText">
+        <li>Gun System</li>
+        <li>Vendor Actors</li>
+        <li>Zombie AI</li>
+      </ul>
+
+
+
+      <h1 class="PageSubtitle PageText">Gun System</h1>
+
+      <p class="ParagraphContent PageText">This is the <a href="../Blogs/UnrealGunSystem.html">gun system</a> that has 
+        already been presented in one of the blogs so this will be more of a brief overview 
+        along with additional info on how it communicates with other game systems.
+
+        The intention for this project and other small projects going forward 
+        is to primarily develop one or two features which can be reused in other future projects.
+
+        With this project the main feature was this gun system which still has room for improvement
+        but has enough to where I am comfortable to move forward with different projects.
+
+        Since this component of the project was not made for this specific project but for various 
+        projects going forward, it would need to be decoupled from all of the other actors of the 
+        project.
+
+        The only other classes the gun class relies on to help communicate with other actors is the 
+        damagable interface to be able to damage other actors and the pickup interface to allow the 
+        player to equip the guns.
+
+        The pickup interface does require the gun class to utilize the InventoryComponent as a 
+        gateway of communication so the gun can be equipped by the player. 
+        </p>
+
+
+        <p class="ParagraphContent PageText">
+          The following is a code snippet demonstrating 
+          the behavior of the overridden pickup method from the IPickUp interface. </p>
+        <pre>
+void AGunBase::PickUp(UInventoryComponent* PickUpInventory,APawn* PickUpPawn) {
+  GunMesh->SetSimulatePhysics(false);
+  GunMesh->SetCollisionProfileName(FName("NoCollision"));
+  AGunBase* PreviousWeapon = PickUpInventory->ForcePickUpWeapon(this);
+  if (PreviousWeapon) {
+    PreviousWeapon->Destroy();
+  }
+}
+        </pre>
+
+        <p class="ParagraphContent PageText"> The code snippet above shows that the gun is simply an actor that attaches to the player 
+          when it is equipped.
+
+          One thing that might seem unresonable is dealing with the previously equipped weapon
+          within the pickup method. 
+          
+          Since the only thing that can been equipped is a gun actor of the AGunBase actor class 
+          I believed it to be inconsequential as to whether the previously equipped weapon is dealt
+          with in the gun class or the inventory class.
+
+          In the end I chose the gun class since that is its current type.
+
+          But if the type of classes that can be equipped is expanded it would be moved to
+          the inventory class where it would either destroy the actor or call the Dropped method
+          of the IPickUp interface.
+        </p>
+
+        <p class="ParagraphContent PageText">
+          How the gun system actually functions is it utilizes data assets and creates the guns at 
+          runtime rather than have an individual blueprint per weapon.
+
+          One data asset contains the model and all the animations so that the visuals of the 
+          weapon can be easily swapped when needed.
+
+          The main data asset contains the data asset for the visuals along with all the gun stats 
+          such as damage, fire rate, etc.
+        </p>
+
+        
+      
+      
+
+      <h3 class="PageSubtitle PageText">Vendor Actors</h3>
+      
+      <p class="ParagraphContent PageText">Vendor actors are simply actors implementing the PickUp interface 
+        and will decrease the player's point amount in their inventory, if they have enough, when they 
+        interact with them. 
+
+        Vendors for purchasing ammo and using points to open the door is generally very simple functionality 
+        but the vendors that give the player weapons require a bit more logic since none of the weapons are 
+        loaded on game start up. 
+        
+        Since all guns are created using data assets the Unreal Engine Asset Manager 
+        can be used to load any data asset into memory asynchronously and then spawn and initialize a gun 
+        actor. 
+      </p>
+      <p class="ParagraphContent PageText">
+        The retrieveal and creation of the data assets are split into two different classes.
+
+        One class is an Unreal Engine subsystem connected to the game instance which any class can access 
+        to call methods to spawn weapons. 
+
+        The other class is derived from the AssetManager class and deals with invoking the asynchronous 
+        loading process for the data assets.
+      </p>
+
+      <p class="ParagraphContent PageText">
+        The following is a code snippet taken from one of the vendor actors in the game which deals with 
+        giving the player a random weapon. 
+        
+        
+      </p>
+      
+      <pre>
+UXKMFactorySubsystem* Factory = GetGameInstance()->GetSubsystem&lt;UXKMFactorySubsystem&gt;();
+Factory->SpawnAndEquipRandomGunAsset(PickUpPawn);
+      </pre>
+
+      <p class="ParagraphContent PageText">
+        It first gets the subsystem from the game instance and then calls a method to spawn and equip a 
+        weapon.
+
+        Since the loading of the data asset is being done asynchronously the subsystem contains the logic 
+        for spawning a new gun of the AGunBase class, initializing it with the loaded data asset, and 
+        equipping it on the pawn passed as an argument.
+
+        This does require the pawn to have an inventory actor component so that the newly spawned gun 
+        can be passed to the inventory. 
+
+        Shown below is what is called within the UXKMFactorySubsystem class once the method from the 
+        previous code snippet is called.
+      </p>
+
+      <pre>
+UXKMAssetManager::Get().GetRandomGunAsset(this, FName("SpawnAndEquipGunActorCallback"), EquipPawn);
+      </pre>
+
+      <p class="ParagraphContent PageText">
+        UXKMAssetManager class, like the AGunBase class, is not coupled to any of the functionality of 
+        the PSX Zombies project and can therefore be used along with the AGunBase class in any future 
+        project. 
+        
+        The three things any of the methods do in the UXKMAssetManager class is find a data asset to load, 
+        create the function delegate to call once loading is done, and then invoke the asynchronous loading 
+        process.
+
+        Once loading is done the delegate will be invoked and the subsystem class will continue with spawning, 
+        initializing, and equipping the weapon.
+      </p>
+      
+      <h1 class="PageSubtitle PageText">Zombie AI</h1>
+
+      <img src="../images/PSXZombies_AITree.png"  alt="Zombies Behavior Tree Visual" class="img"/>
+
+      <p class="ParagraphContent PageText">
+        The image above is the simple zombie ai created with a behavior tree. 
+
+        The first left most sequence deals with some basic initialization including moving to a barrier 
+        once it has spawned and getting the players location.
+
+        On the right is a selector with two sequence below it that deal with the basic as logic.
+
+        The sequence on the left of the selector deals with attacking barriers if a zombie is ever 
+        in front of one.
+
+        Then the final sequence on the right handles the logic of the zombie chasing and attacking the player.
+      </p>
+
+      <p class="ParagraphContent PageText">
+        Although the AI was simple enough since the zombies always have the location of the player stored 
+        in them, there was a problem to solve with barriers blocking their path. 
+
+        In the original World at War gamemode all zombies spawn outside the map and must tear down 
+        barriers before they can enter. 
+
+        These are meant to clearly indicate to the player where zombies will spawn
+        
+        They also serve as buffer room buffer room for the players to kill the zombies while the are 
+        destroying the barriers to prevent them from entering the map.
+
+        My original solution was to make the barreriers collidible with the player and overlap with 
+        the zombies.
+
+        This would allow zombies to enter the map since they wouldn't interfere with the navmesh. 
+        
+        while preventing the player from exiting the map.
+
+        The Only problem with this was the zombies could still exit the map through the barriers creating 
+        some odd behavior when the AI trys to take the most efficient path.
+      </p>
+
+      <p class="ParagraphContent PageText">
+        Solving this problem ended up being relatively simple with the use of a Nav Link Proxy.
+
+        A one way Nav Link Proxy would create a link between two points on a navmesh that an AI
+        agent would be able to traverse even if there is not connection between the points on the navmesh.
+
+        In order to get this working under the specific circumstances of the map a child actor would need 
+        to be create of the Nav Link Proxy class.
+
+        With this the nav link proxy actor is able to run any needed custom behavior one the barrier 
+        associated with the nav link is destoryed and a zombie tries to traverse the link.
+
+        This would not only enable a zombie to enter the map even if their is not navmesh path into it but 
+        also keep them in the map since the nav links can be made to act as a one way path.
+      </p>
+  </body>
+</html>

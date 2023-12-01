@@ -9,7 +9,8 @@ body{
 }
 
 a:link, a:visited, a:hover{
-  color:#000000;
+  color:#00ff00;
+  text-decoration: none;
 }
 
 pre, img, div.IframeContainer iframe{
@@ -165,6 +166,20 @@ img{
   margin:auto;
   border-width: 2px;
   border-style: solid;
+}
+
+.img:hover{
+  color: #424242; 
+-webkit-transition: all .3s ease-in;
+-moz-transition: all .3s ease-in;
+-ms-transition: all .3s ease-in;
+-o-transition: all .3s ease-in;
+transition: all .3s ease-in;
+opacity: 1;
+transform: scale(1.25);
+-ms-transform: scale(1.25); /* IE 9 */
+-webkit-transform: scale(1.25); /* Safari and Chrome */
+
 }
 
 @media only screen and (min-width:1215px){

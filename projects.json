@@ -1,7 +1,8 @@
 {
   "Projects": {
     "MonoGameZeldaProject": { "Title":"MonoGame Zelda","Description":"Recreation of the first dungeon of Legend of Zelda for the NES using MonoGame.","Year":"2020"},
-    "OSUCapstoneProject": { "Title":"OSU Capstone","Description":"OSU capstone project creating a game in unity.","Year":"2022"}
+    "OSUCapstoneProject": { "Title":"OSU Capstone","Description":"OSU capstone project creating a game in unity.","Year":"2022"},
+    "PSXZombieProject": {"Title":"PSX Zombie","Description":"Wave based zombie recreation utilizing recently made gun system.","Year":"2023"}
   },
   "Blogs": {
     "UnrealLegoMaterialScript": { "Title":"Python Scripts In Unreal","Description": "Using python in Unreal Engine to automate large tasks.","Year":"2021" },

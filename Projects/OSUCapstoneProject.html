@@ -85,7 +85,7 @@
       The following image is a visual representation of the behavior tree created in Unreal Engine purely for demonstration purpose and is not functional.
     </p>
 
-    <img src="../images/HauntedElectricianBT.png" alt="Behavior Tree Visual"/>
+    <img src="../images/HauntedElectricianBT.png" alt="Behavior Tree Visual" class="img"/>
 
     <p class="ParagraphContent PageText">
       Below is the actual construction of the behavior tree in csharp. 
@@ -94,97 +94,97 @@
     </p>
     
     <pre>
-      //sequence
-      BTT_SetAgentChaseSpeed startRunning = new BTT_SetAgentChaseSpeed(patrollingBehaviorTree, chaseSpeed);
-      BTT_MoveToPosition moveToPlayer = new BTT_MoveToPosition(patrollingBehaviorTree, BlackboardKey.FollowingGameObject, chaseSpeed,acceptanceRadius);
-      BTT_CallMethodByName startAttack = new BTT_CallMethodByName(patrollingBehaviorTree, "Attack", new object[] { }, this, typeof(FollowingAI));
-      BTS_CopyOverValue setLastPlayerLocation = new BTS_CopyOverValue(patrollingBehaviorTree, 0.2f, BlackboardKey.FollowingGameObject, BlackboardKey.LastFollowingLocation);
-      BTC_Sequence followAndAttack = new BTC_Sequence("Follow And Attack Sequence", patrollingBehaviorTree, new List<Node>() { startRunning, moveToPlayer, startAttack }, new List<BTService>() { setLastPlayerLocation });
-      BTD_IsReachablePosition canReachPlayer = new BTD_IsReachablePosition(patrollingBehaviorTree, followAndAttack, BlackboardKey.FollowingGameObject, acceptanceRadius);
+//sequence
+BTT_SetAgentChaseSpeed startRunning = new BTT_SetAgentChaseSpeed(patrollingBehaviorTree, chaseSpeed);
+BTT_MoveToPosition moveToPlayer = new BTT_MoveToPosition(patrollingBehaviorTree, BlackboardKey.FollowingGameObject, chaseSpeed,acceptanceRadius);
+BTT_CallMethodByName startAttack = new BTT_CallMethodByName(patrollingBehaviorTree, "Attack", new object[] { }, this, typeof(FollowingAI));
+BTS_CopyOverValue setLastPlayerLocation = new BTS_CopyOverValue(patrollingBehaviorTree, 0.2f, BlackboardKey.FollowingGameObject, BlackboardKey.LastFollowingLocation);
+BTC_Sequence followAndAttack = new BTC_Sequence("Follow And Attack Sequence", patrollingBehaviorTree, new List&lt;Node&gt;() { startRunning, moveToPlayer, startAttack }, new List&lt;BTService&gt;() { setLastPlayerLocation });
+BTD_IsReachablePosition canReachPlayer = new BTD_IsReachablePosition(patrollingBehaviorTree, followAndAttack, BlackboardKey.FollowingGameObject, acceptanceRadius);
 
-      //task
-      BTT_StopFollowing stopFollowingPlayer = new BTT_StopFollowing(patrollingBehaviorTree);
+//task
+BTT_StopFollowing stopFollowingPlayer = new BTT_StopFollowing(patrollingBehaviorTree);
 
-      //selector
-      BTC_Selector chasePlayerOrStop = new BTC_Selector("Chase Player, Stop If Unreachable", patrollingBehaviorTree, new List<Node>() { canReachPlayer, stopFollowingPlayer });
-      BTD_IsNotNull canSeePlayer = new BTD_IsNotNull(patrollingBehaviorTree, chasePlayerOrStop, BlackboardKey.FollowingGameObject);
+//selector
+BTC_Selector chasePlayerOrStop = new BTC_Selector("Chase Player, Stop If Unreachable", patrollingBehaviorTree, new List&lt;Node&gt;() { canReachPlayer, stopFollowingPlayer });
+BTD_IsNotNull canSeePlayer = new BTD_IsNotNull(patrollingBehaviorTree, chasePlayerOrStop, BlackboardKey.FollowingGameObject);
 
-      //sequence
-      BTT_SetAgentChaseSpeed startWalking = new BTT_SetAgentChaseSpeed(patrollingBehaviorTree, chaseSpeed);
-      BTT_MoveToPosition moveToLastPlayerPosition = new BTT_MoveToPosition(patrollingBehaviorTree, BlackboardKey.LastFollowingLocation,chaseSpeed, acceptanceRadius);
-      BTD_IsReachablePosition lastPositionIsReachable = new BTD_IsReachablePosition(patrollingBehaviorTree, moveToLastPlayerPosition, BlackboardKey.LastFollowingLocation, acceptanceRadius);
-      BTD_IsNotNull lastPositionStillExists = new BTD_IsNotNull(patrollingBehaviorTree, lastPositionIsReachable, BlackboardKey.LastFollowingLocation);
-      BTD_NeverFail alwaysAttemptLastPosition = new BTD_NeverFail(patrollingBehaviorTree, lastPositionStillExists);
-      BTT_WaitForSeconds lookForPlayer = new BTT_WaitForSeconds(patrollingBehaviorTree, 1.0f);
-      BTT_SetNull clearLastPosition = new BTT_SetNull(patrollingBehaviorTree, BlackboardKey.LastFollowingLocation);
-      BTS_SetNullAfterInterval outOfSightOutOfMind = new BTS_SetNullAfterInterval(patrollingBehaviorTree, 3.0f, BlackboardKey.LastFollowingLocation);
-      BTC_Sequence searchForPlayerIfLastLocationKnown = new BTC_Sequence("Go To Last Player Position If Known", patrollingBehaviorTree, new List<Node>() { startWalking, alwaysAttemptLastPosition, lookForPlayer, clearLastPosition }, new List<BTService>() { outOfSightOutOfMind });
-      BTD_IsNotNull hasSearchedLastPlayerLocation = new BTD_IsNotNull(patrollingBehaviorTree, searchForPlayerIfLastLocationKnown, BlackboardKey.LastFollowingLocation);
+//sequence
+BTT_SetAgentChaseSpeed startWalking = new BTT_SetAgentChaseSpeed(patrollingBehaviorTree, chaseSpeed);
+BTT_MoveToPosition moveToLastPlayerPosition = new BTT_MoveToPosition(patrollingBehaviorTree, BlackboardKey.LastFollowingLocation,chaseSpeed, acceptanceRadius);
+BTD_IsReachablePosition lastPositionIsReachable = new BTD_IsReachablePosition(patrollingBehaviorTree, moveToLastPlayerPosition, BlackboardKey.LastFollowingLocation, acceptanceRadius);
+BTD_IsNotNull lastPositionStillExists = new BTD_IsNotNull(patrollingBehaviorTree, lastPositionIsReachable, BlackboardKey.LastFollowingLocation);
+BTD_NeverFail alwaysAttemptLastPosition = new BTD_NeverFail(patrollingBehaviorTree, lastPositionStillExists);
+BTT_WaitForSeconds lookForPlayer = new BTT_WaitForSeconds(patrollingBehaviorTree, 1.0f);
+BTT_SetNull clearLastPosition = new BTT_SetNull(patrollingBehaviorTree, BlackboardKey.LastFollowingLocation);
+BTS_SetNullAfterInterval outOfSightOutOfMind = new BTS_SetNullAfterInterval(patrollingBehaviorTree, 3.0f, BlackboardKey.LastFollowingLocation);
+BTC_Sequence searchForPlayerIfLastLocationKnown = new BTC_Sequence("Go To Last Player Position If Known", patrollingBehaviorTree, new List&lt;Node&gt;() { startWalking, alwaysAttemptLastPosition, lookForPlayer, clearLastPosition }, new List&lt;BTService&gt;() { outOfSightOutOfMind });
+BTD_IsNotNull hasSearchedLastPlayerLocation = new BTD_IsNotNull(patrollingBehaviorTree, searchForPlayerIfLastLocationKnown, BlackboardKey.LastFollowingLocation);
 
-      //sequence
-      BTT_SetAgentChaseSpeed startPatrolling = new BTT_SetAgentChaseSpeed(patrollingBehaviorTree, walkSpeed);
-      BTT_CycleThroughList cycleToNextPatrolPoint = new BTT_CycleThroughList(patrollingBehaviorTree, BlackboardKey.PatrolPoints, BlackboardKey.NextPatrolPoint);
-      BTT_MoveToPosition moveToNextPatrolPoint = new BTT_MoveToPosition(patrollingBehaviorTree, BlackboardKey.NextPatrolPoint, walkSpeed,patrolAcceptanceRadius);
-      BTC_Sequence patrolMovementSequence = new BTC_Sequence("Patrol if point reachable", patrollingBehaviorTree, new List<Node>() { moveToNextPatrolPoint  });
-      BTD_IsReachablePosition canReachNextPatrolPoint = new BTD_IsReachablePosition(patrollingBehaviorTree, patrolMovementSequence, BlackboardKey.NextPatrolPoint, acceptanceRadius);
-      BTD_NeverFail alwaysAttemptNextPatrolPoint = new BTD_NeverFail(patrollingBehaviorTree, canReachNextPatrolPoint);
-      BTC_Sequence patrolMap = new BTC_Sequence("Patrol Map Sequence", patrollingBehaviorTree, new List<Node>() { startPatrolling, cycleToNextPatrolPoint, alwaysAttemptNextPatrolPoint/*, stopAtPatrolPoint*/ });
-      BTD_IsNull patrolIfPlayerLocationNotKnown = new BTD_IsNull(patrollingBehaviorTree, patrolMap, BlackboardKey.FollowingGameObject);
+//sequence
+BTT_SetAgentChaseSpeed startPatrolling = new BTT_SetAgentChaseSpeed(patrollingBehaviorTree, walkSpeed);
+BTT_CycleThroughList cycleToNextPatrolPoint = new BTT_CycleThroughList(patrollingBehaviorTree, BlackboardKey.PatrolPoints, BlackboardKey.NextPatrolPoint);
+BTT_MoveToPosition moveToNextPatrolPoint = new BTT_MoveToPosition(patrollingBehaviorTree, BlackboardKey.NextPatrolPoint, walkSpeed,patrolAcceptanceRadius);
+BTC_Sequence patrolMovementSequence = new BTC_Sequence("Patrol if point reachable", patrollingBehaviorTree, new List&lt;Node&gt;() { moveToNextPatrolPoint  });
+BTD_IsReachablePosition canReachNextPatrolPoint = new BTD_IsReachablePosition(patrollingBehaviorTree, patrolMovementSequence, BlackboardKey.NextPatrolPoint, acceptanceRadius);
+BTD_NeverFail alwaysAttemptNextPatrolPoint = new BTD_NeverFail(patrollingBehaviorTree, canReachNextPatrolPoint);
+BTC_Sequence patrolMap = new BTC_Sequence("Patrol Map Sequence", patrollingBehaviorTree, new List&lt;Node&gt;() { startPatrolling, cycleToNextPatrolPoint, alwaysAttemptNextPatrolPoint/*, stopAtPatrolPoint*/ });
+BTD_IsNull patrolIfPlayerLocationNotKnown = new BTD_IsNull(patrollingBehaviorTree, patrolMap, BlackboardKey.FollowingGameObject);
 
-      //selector
-      BTS_SetObjectIfSeen setPlayerPositionIfVisible = new BTS_SetObjectIfSeen(patrollingBehaviorTree, 0.2f, BlackboardKey.FollowingGameObject);
-      BTC_Selector patrolAndLookForPlayer = new BTC_Selector("Patrol And Look For Player", patrollingBehaviorTree, new List<Node>() { canSeePlayer, hasSearchedLastPlayerLocation, patrolIfPlayerLocationNotKnown }, new List<BTService>() { setPlayerPositionIfVisible });
-      BTD_IsNotTrue notInFlashLight = new BTD_IsNotTrue(patrollingBehaviorTree, patrolAndLookForPlayer, BlackboardKey.ReactingToFlashlight);
+//selector
+BTS_SetObjectIfSeen setPlayerPositionIfVisible = new BTS_SetObjectIfSeen(patrollingBehaviorTree, 0.2f, BlackboardKey.FollowingGameObject);
+BTC_Selector patrolAndLookForPlayer = new BTC_Selector("Patrol And Look For Player", patrollingBehaviorTree, new List&lt;Node&gt;() { canSeePlayer, hasSearchedLastPlayerLocation, patrolIfPlayerLocationNotKnown }, new List&lt;BTService&gt;() { setPlayerPositionIfVisible });
+BTD_IsNotTrue notInFlashLight = new BTD_IsNotTrue(patrollingBehaviorTree, patrolAndLookForPlayer, BlackboardKey.ReactingToFlashlight);
 
-      //seqeuence
-      BTT_StopFollowing stopAndBurn = new BTT_StopFollowing(patrollingBehaviorTree);
-      BTT_SetNull forgetPlayer = new BTT_SetNull(patrollingBehaviorTree, BlackboardKey.FollowingGameObject);
-      BTT_SetNull dontSearch = new BTT_SetNull(patrollingBehaviorTree, BlackboardKey.LastFollowingLocation);
-      BTT_SetBlackboardToValue deagro = new BTT_SetBlackboardToValue(patrollingBehaviorTree, BlackboardKey.Attacking, false);
-      BTT_SetBlackboardToValue setStunTime = new BTT_SetBlackboardToValue(patrollingBehaviorTree, BlackboardKey.StunTime, 5.0f);
-      BTT_CallMethodByName getShinedDirection = new BTT_CallMethodByName(patrollingBehaviorTree, "GetSearchPosition", new object[] { }, this, typeof(FollowingAI));
-      BTT_SetBlackboardToValue removeShinedStatus = new BTT_SetBlackboardToValue(patrollingBehaviorTree, BlackboardKey.InFlashLightBeam, false);
-      BTC_Sequence reactToFlashlight = new BTC_Sequence("React to flashlight", patrollingBehaviorTree, new List<Node>() { stopAndBurn, forgetPlayer, dontSearch, deagro, setStunTime, getShinedDirection, removeShinedStatus });
-      BTD_IsTrue isInFlashlight = new BTD_IsTrue(patrollingBehaviorTree, reactToFlashlight, BlackboardKey.InFlashLightBeam);
+//seqeuence
+BTT_StopFollowing stopAndBurn = new BTT_StopFollowing(patrollingBehaviorTree);
+BTT_SetNull forgetPlayer = new BTT_SetNull(patrollingBehaviorTree, BlackboardKey.FollowingGameObject);
+BTT_SetNull dontSearch = new BTT_SetNull(patrollingBehaviorTree, BlackboardKey.LastFollowingLocation);
+BTT_SetBlackboardToValue deagro = new BTT_SetBlackboardToValue(patrollingBehaviorTree, BlackboardKey.Attacking, false);
+BTT_SetBlackboardToValue setStunTime = new BTT_SetBlackboardToValue(patrollingBehaviorTree, BlackboardKey.StunTime, 5.0f);
+BTT_CallMethodByName getShinedDirection = new BTT_CallMethodByName(patrollingBehaviorTree, "GetSearchPosition", new object[] { }, this, typeof(FollowingAI));
+BTT_SetBlackboardToValue removeShinedStatus = new BTT_SetBlackboardToValue(patrollingBehaviorTree, BlackboardKey.InFlashLightBeam, false);
+BTC_Sequence reactToFlashlight = new BTC_Sequence("React to flashlight", patrollingBehaviorTree, new List&lt;Node&gt;() { stopAndBurn, forgetPlayer, dontSearch, deagro, setStunTime, getShinedDirection, removeShinedStatus });
+BTD_IsTrue isInFlashlight = new BTD_IsTrue(patrollingBehaviorTree, reactToFlashlight, BlackboardKey.InFlashLightBeam);
 
-      //sequence
-      BTT_WaitForSeconds burnWait = new BTT_WaitForSeconds(patrollingBehaviorTree, 1.0f);
-      BTT_CallMethodByName decrementStun = new BTT_CallMethodByName(patrollingBehaviorTree, "DecrementStun", new object[] { }, this, typeof(FollowingAI));
-      BTC_Sequence stunSequence = new BTC_Sequence("Stun Sequence", patrollingBehaviorTree, new List<Node>() { burnWait, decrementStun });
-      BTD_EvaluateFloatCondition stunGreaterThanZero = new BTD_EvaluateFloatCondition(patrollingBehaviorTree, stunSequence, BlackboardKey.StunTime, BlackboardKey.Epsilon, ERelationalOperator.GreaterThan);
-      BTD_IsNotTrue isNotInFlashlight = new BTD_IsNotTrue(patrollingBehaviorTree, stunGreaterThanZero, BlackboardKey.InFlashLightBeam);
-      BTD_Repeater loopStun = new BTD_Repeater(patrollingBehaviorTree, isNotInFlashlight);
-      BTD_NeverFail loopTilFail = new BTD_NeverFail(patrollingBehaviorTree, loopStun);
+//sequence
+BTT_WaitForSeconds burnWait = new BTT_WaitForSeconds(patrollingBehaviorTree, 1.0f);
+BTT_CallMethodByName decrementStun = new BTT_CallMethodByName(patrollingBehaviorTree, "DecrementStun", new object[] { }, this, typeof(FollowingAI));
+BTC_Sequence stunSequence = new BTC_Sequence("Stun Sequence", patrollingBehaviorTree, new List&lt;Node&gt;() { burnWait, decrementStun });
+BTD_EvaluateFloatCondition stunGreaterThanZero = new BTD_EvaluateFloatCondition(patrollingBehaviorTree, stunSequence, BlackboardKey.StunTime, BlackboardKey.Epsilon, ERelationalOperator.GreaterThan);
+BTD_IsNotTrue isNotInFlashlight = new BTD_IsNotTrue(patrollingBehaviorTree, stunGreaterThanZero, BlackboardKey.InFlashLightBeam);
+BTD_Repeater loopStun = new BTD_Repeater(patrollingBehaviorTree, isNotInFlashlight);
+BTD_NeverFail loopTilFail = new BTD_NeverFail(patrollingBehaviorTree, loopStun);
 
-      //sequence
-      BTT_SetAgentChaseSpeed startInvestigating = new BTT_SetAgentChaseSpeed(patrollingBehaviorTree, walkSpeed);
-      BTT_MoveToPosition searchLight = new BTT_MoveToPosition(patrollingBehaviorTree, BlackboardKey.SearchPosition, walkSpeed,2.0f);
-      BTT_WaitForSeconds investigateLight = new BTT_WaitForSeconds(patrollingBehaviorTree, 2.0f);
-      BTS_SetObjectIfSeen searchForPlayerWhereLightShined = new BTS_SetObjectIfSeen(patrollingBehaviorTree, 0.2f, BlackboardKey.FollowingGameObject);
-      BTC_Sequence investigateSequence = new BTC_Sequence("Investigate flashlight", patrollingBehaviorTree, new List<Node>() { startInvestigating, searchLight, investigateLight },new List<BTService> { searchForPlayerWhereLightShined });
-      BTD_IsNull seachWhileCantSeePlayer = new BTD_IsNull(patrollingBehaviorTree, investigateSequence, BlackboardKey.FollowingGameObject);
+//sequence
+BTT_SetAgentChaseSpeed startInvestigating = new BTT_SetAgentChaseSpeed(patrollingBehaviorTree, walkSpeed);
+BTT_MoveToPosition searchLight = new BTT_MoveToPosition(patrollingBehaviorTree, BlackboardKey.SearchPosition, walkSpeed,2.0f);
+BTT_WaitForSeconds investigateLight = new BTT_WaitForSeconds(patrollingBehaviorTree, 2.0f);
+BTS_SetObjectIfSeen searchForPlayerWhereLightShined = new BTS_SetObjectIfSeen(patrollingBehaviorTree, 0.2f, BlackboardKey.FollowingGameObject);
+BTC_Sequence investigateSequence = new BTC_Sequence("Investigate flashlight", patrollingBehaviorTree, new List&lt;Node&gt;() { startInvestigating, searchLight, investigateLight },new List&lt;BTService&gt; { searchForPlayerWhereLightShined });
+BTD_IsNull seachWhileCantSeePlayer = new BTD_IsNull(patrollingBehaviorTree, investigateSequence, BlackboardKey.FollowingGameObject);
 
-      //task
-      BTT_SetBlackboardToValue stopReactionFallBack = new BTT_SetBlackboardToValue(patrollingBehaviorTree, BlackboardKey.ReactingToFlashlight, false);
+//task
+BTT_SetBlackboardToValue stopReactionFallBack = new BTT_SetBlackboardToValue(patrollingBehaviorTree, BlackboardKey.ReactingToFlashlight, false);
 
-      //selector
-      BTC_Selector stopReactingSelectorFallback = new BTC_Selector("StopReactingSelectorFallBack", patrollingBehaviorTree, new List<Node> { seachWhileCantSeePlayer, stopReactionFallBack });
+//selector
+BTC_Selector stopReactingSelectorFallback = new BTC_Selector("StopReactingSelectorFallBack", patrollingBehaviorTree, new List&lt;Node&gt; { seachWhileCantSeePlayer, stopReactionFallBack });
 
-      //task
-      BTT_SetBlackboardToValue stopReaction = new BTT_SetBlackboardToValue(patrollingBehaviorTree, BlackboardKey.ReactingToFlashlight, false);
+//task
+BTT_SetBlackboardToValue stopReaction = new BTT_SetBlackboardToValue(patrollingBehaviorTree, BlackboardKey.ReactingToFlashlight, false);
 
-      //sequence
-      BTC_Sequence sequence01 = new BTC_Sequence("sequence01", patrollingBehaviorTree, new List<Node>() { loopTilFail, stopReactingSelectorFallback, stopReaction });
-      BTD_IsNotTrue isNotInFlashlight_sequence01 = new BTD_IsNotTrue(patrollingBehaviorTree, sequence01, BlackboardKey.InFlashLightBeam);
+//sequence
+BTC_Sequence sequence01 = new BTC_Sequence("sequence01", patrollingBehaviorTree, new List&lt;Node&gt;() { loopTilFail, stopReactingSelectorFallback, stopReaction });
+BTD_IsNotTrue isNotInFlashlight_sequence01 = new BTD_IsNotTrue(patrollingBehaviorTree, sequence01, BlackboardKey.InFlashLightBeam);
 
-      //sequence
-      BTC_Sequence burnThenInvestigate = new BTC_Sequence("Flashlight burn and Investigate", patrollingBehaviorTree, new List<Node>() { isInFlashlight, isNotInFlashlight_sequence01 });
+//sequence
+BTC_Sequence burnThenInvestigate = new BTC_Sequence("Flashlight burn and Investigate", patrollingBehaviorTree, new List&lt;Node&gt;() { isInFlashlight, isNotInFlashlight_sequence01 });
 
-      //selector
-      BTC_Selector patrolFollowOrBurn = new BTC_Selector("Patrol And Follow Or Burn In Light", patrollingBehaviorTree, new List<Node>() { notInFlashLight, burnThenInvestigate });
+//selector
+BTC_Selector patrolFollowOrBurn = new BTC_Selector("Patrol And Follow Or Burn In Light", patrollingBehaviorTree, new List&lt;Node&gt;() { notInFlashLight, burnThenInvestigate });
 
-      //selector
-      BTC_Selector selectorNode = new BTC_Selector("Root Selector", patrollingBehaviorTree, new List<Node>() { patrolFollowOrBurn });
+//selector
+BTC_Selector selectorNode = new BTC_Selector("Root Selector", patrollingBehaviorTree, new List&lt;Node&gt;() { patrolFollowOrBurn });
     </pre>
 
   </body>
