@@ -1,24 +1,34 @@
 <!DOCTYPE html>
-
 <html>
     <head>
-        <meta charset="UTF-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" type="text/css" href="./styles/style.css" />
+        <link rel="stylesheet" type="text/css" href="./styles/contentTile.css" />
         <title>Tim's Site</title>
-        <link rel="shortcut icon" href="#"/>
-        <link rel="stylesheet" type="text/css" href="style.css" />
-        <link rel="stylesheet" type="text/css" href="contentTile.css"/>
-        <script type="text/javascript" src="ContentLoader.js"></script>
-       
-    </head>
+        <link rel="shortcut icon" href="#" />
 
+        <script type="text/javascript" src="ContentLoader.js"></script>
+
+    </head>
     <body onload="LoadJsonContentByType('Blogs'); PopulatePageBar('.')">
-        <h1 class="PageHeading PageText">Tim's Blog</h1>
-        <ul id="PageBar">
-        
-        </ul>
-        <div id="ProjectsDiv" class="ProjectContainer">
-           
+        <img class="TitleImage" src="header-size.jpg" />
+        <div class="HorizontalBox">
+            <div class="LeftBar">
+                <ul id="PageBar">
+                    
+                </ul>
+            </div>
+
+            <div class="MainContent">
+                <div id="ProjectsDiv" class="ProjectContainer">
+                    
+                </div>
+
+            </div>
         </div>
+        <footer>
+            <p>test footer</p>
+        </footer>
     </body>
 </html>

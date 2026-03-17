@@ -1,34 +1,94 @@
 <!DOCTYPE html>
 
 <html>
-  <head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="stylesheet" type="text/css" href="style.css" />
-    <title>Tim's Site</title>
-    <link rel="shortcut icon" href="#"/>
-    <script type="text/javascript" src="ContentLoader.js"></script>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" type="text/css" href="./styles/style.css" />
+        <link rel="stylesheet" type="text/css" href="./styles/contentTile.css" />
+        <title>Tim's Site</title>
+        <link rel="shortcut icon" href="#" />
 
+        <script type="text/javascript" src="ContentLoader.js"></script>
 
-     <!--<script type="module" src="First.js"></script>-->
-      
-  </head>
-  
-  <body onload="PopulatePageBar('.')">
-    <h1 class="PageHeading PageText">Tim's Site</h1>
-    
+    </head>
 
-      <ul id="PageBar">
-       </ul>
-      <p class="ParagraphContent PageText"> I am a graduate of Ohio State University with a Bachelor of Science in Computer and Information Science with
-        a specialization in Computer Graphics and Game Design. During high school I took programming classes at a career
-        center and continued my education at Ohio State University with a desire to learn more about game development.
-        I began learning game development with Unreal Engine in 2020 after messing around with OpenGL and Unity for the previous two years.
-        I see game development as a medium that brings together creativity with art into a technical medium which I find to be the
-        most intriguing area of computer science. I have filled my free time with furthering my knowledge in Unreal Engine and
-        hope to release my own game someday for the purpose of realizing my own imaginative ideas.
-</p>
+    <body onload="PopulatePageBar('.'); LoadJsonContentJumbled();">
+        
+         <img class="TitleImage" src="header-size.jpg" />
+       <!-- <canvas id="webgl-canvas" class="TestGL"></canvas>
+        <div id="error-box">
+            <span class="error-box-title">Error messages go here.</span>
+        </div>
+        <script src="TestGL.js"></script>-->
+        <div class="HorizontalBox">
 
-  </body>
+            <div class="LeftBar">
+                <ul id="PageBar">
+                    
+                </ul>
+            </div>
+
+            <div class="MainContent">
+                <h1 class="PageHeading PageText">Tim's Site</h1>
+                <h2 class="PageSubtitle PageText">Programmer/Game Dev/Artist</h2>
+
+                <p class="ParagraphContent PageText">
+                    What im working on
+                </p>
+
+                <div id="ProjectsDiv" class="ProjectContainer">
+                    <a href="./index.html">
+                        <div class="ProjectTitleTile">
+                            <h1>This Website</h1>
+                            <p>Redoing my entire website to make it more appealing</p>
+                            <img src="./inprogress/images/ThisWebsite.GIF" />
+                        </div>
+                    </a>
+                    <a href="./inprogress/PSXZombieProject.html">
+                        <div class="ProjectTitleTile">
+                            <h1>PSX Zombies</h1>
+                            <p>Wave based zombie recreation utilizing recently made, but outdated, gun system.</p>
+                            <img src="./inprogress/images/PSXZombiesProject.GIF" />
+                        </div>
+                    </a>
+                    <a href="./inprogress/TetrisPytorchProject.html">
+                        <div class="ProjectTitleTile">
+                            <h1>Playing Tetris With Pytorch</h1>
+                            <p>Using pytorch to train a neural network to play pong.</p>
+                            <img src="./inprogress/images/TetrisPytorchProject.gif"/>
+                        </div>
+                    </a>
+                </div>
+
+                <p class="ParagraphContent PageText"> I am a graduate of Ohio
+                    State University with a Bachelor of Science in Computer and
+                    Information Science with
+                    a specialization in Computer Graphics and Game Design.
+                    During high school I took programming classes at a career
+                    center and continued my education at Ohio State University
+                    with a desire to learn more about game development.
+                    I began learning game development with Unreal Engine in 2020
+                    after messing around with OpenGL and Unity for the previous
+                    two years.
+                    I see game development as a medium that brings together
+                    creativity with art into a technical medium which I find to
+                    be the
+                    most intriguing area of computer science. I have filled my
+                    free time with furthering my knowledge in Unreal Engine and
+                    hope to release my own game someday for the purpose of
+                    realizing my own imaginative ideas.
+                </p>
+
+                <div id="ProjectsDiv" class="ProjectContainer AllProjectsJumbled">
+                    
+                </div>
+            </div>
+
+        </div>
+        <footer>
+            <p>test footer</p>
+        </footer>
+    </body>
 
 </html>

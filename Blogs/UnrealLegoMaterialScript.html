@@ -1,23 +1,27 @@
 <!DOCTYPE html>
-
 <html>
-  <head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="stylesheet" type="text/css" href="../style.css" />
-    <title>Tim's Site</title>
-    <link rel="shortcut icon" href="#"/>
-    <script type="text/javascript" src="../ContentLoader.js"></script>
-  </head>
-  
-  <body onload="PopulatePageBar('..')">
-    <h1 class="PageHeading PageText">Python Scripts In Unreal</h1>
-    
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" type="text/css" href="../styles/style.css" />
+        <link rel="stylesheet" type="text/css" href="../styles/contentTile.css" />
+        <title>Tim's Site</title>
+        <link rel="shortcut icon" href="#" />
 
-      <ul id="PageBar">
-      </ul>
-      
-      <div class="IframeContainer">
+        <script type="text/javascript" src="../ContentLoader.js"></script>
+
+    </head>
+    <body onload="PopulatePageBar('..')">
+        <img class="TitleImage" src="../header-size.jpg" />
+        <div class="HorizontalBox">
+            <div class="LeftBar">
+                <ul id="PageBar">
+                    
+                </ul>
+            </div>
+             <div class="MainContent">
+                
+                 <div class="IframeContainer">
         <iframe src="https://www.youtube.com/embed/xqzLOTBfzaw" frameborder="0" allowfullscreen>
         </iframe>
       </div>
@@ -110,8 +114,10 @@
               current_mesh.set_material(0,imperfect_material)
               unreal.log("Material assigned to mesh: "+current_mesh.get_name())
       </pre>
-                  
-          
-
-  </body>
+            </div>
+        </div>
+        <footer>
+            <p>test footer</p>
+        </footer>
+    </body>
 </html>

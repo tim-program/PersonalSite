@@ -1,28 +1,41 @@
 <!DOCTYPE html>
-
 <html>
     <head>
-      <meta charset="UTF-8"/>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-      <link rel="stylesheet" type="text/css" href="style.css" />
-      <title>Tim's Site</title>
-      <link rel="shortcut icon" href="#"/>
-    </head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" type="text/css" href="./styles/style.css" />
+        <link rel="stylesheet" type="text/css" href="./styles/contentTile.css" />
+        <title>Tim's Site</title>
+        <link rel="shortcut icon" href="#" />
 
-    <body>
-        <h1 class="PopOutParagraph">Tim's About Me</h1>
-        <ul class="PageBar">
-            <a href="index.html"><li>Timothy Deutsch</li></a>
-            <a href="aboutMe.html"><li>About Me</li></a>
-            <a href="projects.html"><li>Projects</li></a>
-            <a href="blog.html"><li>Blog</li></a>
-            <a href="TimothyDeutschResumeRevising.pdf"><li>Resume (revising)</li></a>
-          </ul>
-          <p class="ParagraphContent">-Im timothy deutsch a graduate of ohio state university with a bachalors of science in computer and information science and a specialization in Computer Graphics and Game Design
-            -Took programming classes at a career center in high school and continued my education at the ohio state university
-            -summer of 2020 I started learning unreal engine through online education sources and havent stopped since
-            -game development brings together creativity with art into a technical medium which i find to be the most insiring area of computer science
-            -i have filled my free time with furthering my knowledge in unreal engine and hope to release my own games someday for the purpose of realizing my own imaginative ideas
-          </p>
+        <script type="text/javascript" src="ContentLoader.js"></script>
+
+    </head>
+    <body onload="PopulatePageBar('.')">
+        <img class="TitleImage" src="header-size.jpg" />
+        <div class="HorizontalBox">
+            <div class="LeftBar">
+                <ul id="PageBar">
+                    
+                </ul>
+            </div>
+            <div class="MainContent">
+                <p>
+                    Software of choice:
+                </p>
+                <p>Unreal Engine</p>
+                <p>Unity</p>
+                <p>Godot</p>
+                <p>Visual Studio</p>
+                <p>VS Code</p>
+                <p>Paint.net</p>
+                <p>Gimp</p>
+                <p>Blender</p>
+                <p>Audacity</p>
+            </div>
+        </div>
+        <footer>
+            <p>test footer</p>
+        </footer>
     </body>
 </html>

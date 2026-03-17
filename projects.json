@@ -1,14 +1,23 @@
 {
-  "Projects": {
-    "MonoGameZeldaProject": { "Title":"MonoGame Zelda","Description":"Recreation of the first dungeon of Legend of Zelda for the NES using MonoGame.","Year":"2020"},
-    "OSUCapstoneProject": { "Title":"OSU Capstone","Description":"OSU capstone project creating a game in unity.","Year":"2022"},
-    "PSXZombieProject": {"Title":"PSX Zombie","Description":"Wave based zombie recreation utilizing recently made gun system.","Year":"2023"}
-  },
-  "Blogs": {
-    "UnrealLegoMaterialScript": { "Title":"Python Scripts In Unreal","Description": "Using python in Unreal Engine to automate large tasks.","Year":"2021" },
-    "UnrealOctree2": { "Title":"Using Octree2 In Unreal", "Description": "Using Octree2 data type in Unreal Engine.", "Year":"2023"},
-    "GameJamAdapt": { "Title":"GameJam Adaptation","Description": "5 day GameJam submission using Unreal Engine.","Year":"2021" },
-    "UnrealGunSystem": { "Title":"Dynamic Gun System","Description":"Dynamic gun system in Unreal using Data Assets","Year":"2023"},
-    "GraphPathFinding": {"Title":"Graph Path Finding","Description":"Implementation of different graph algorithms","Year":"2024"}
-  }
+    "InProgress":{
+        "PSXZombieProject": {"Title":"PSX Zombies","Description":"Wave based zombie recreation utilizing recently made, but outdated, gun system.","src":"gif","Year":2023,"Month":6},
+        "TetrisPytorchProject": {"Title":"Playing Tetris With Pytorch","Description":"Using pytorch to train a neural network to play pong.","src":"gif","Year":2026,"Month":4}
+    },
+    "Blogs":{
+        "UnrealLegoMaterialScript": { "Title":"Python Scripts In Unreal","Description": "Using python in Unreal Engine to automate large tasks.","src":"gif","Year":2021,"Month":2 },
+        "UnrealOctree2": { "Title":"Using Octree2 In Unreal", "Description": "Using Octree2 data type in Unreal Engine.","src":"png", "Year":2023,"Month":3},
+        "GameJamAdapt": { "Title":"GameJam Adaptation","Description": "5 day GameJam submission using Unreal Engine.","src":"gif","Year":2021,"Month":10},
+        "UnrealGunSystem": { "Title":"Dynamic Gun System","Description":"Dynamic gun system in Unreal using Data Assets","Year":2023,"Month":5},
+        "GraphPathFinding": {"Title":"Graph Path Finding","Description":"Implementation of different graph algorithms","src":"gif","Year":2024,"Month":4}
+    },
+    "AI":{
+        "PongPytorchProject":{"Title":"Playing Pong With Pytorch","Description":"Using pytorch to train a neural network to play pong","src":"gif","Year":2024,"Month":5}
+    },
+    "GameDev":{
+        "MonoGameZeldaProject": { "Title":"MonoGame Zelda","Description":"Recreation of the first dungeon of Legend of Zelda for the NES using MonoGame.","src":"gif","Year":2020,"Month":12},
+        "OSUCapstoneProject": { "Title":"OSU Capstone","Description":"OSU capstone project creating a game in unity.","src":"gif","Year":2022,"Month":5}
+    },
+    "Art":{
+        "SmileFace": {"Title": "Smile Face","Description":"MS Paint","src":"png","Year":2026,"Month":2,"Day":20}
+    }
 }
