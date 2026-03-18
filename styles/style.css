@@ -57,7 +57,7 @@ body {
 }
 
 img.TitleImage{
-  width:100%;
+  width:98.5%;
 }
 
 canvas.TestGL{
@@ -90,14 +90,13 @@ canvas.TestGL{
   display:flex;
   flex-direction: column;
   align-items: flex-start;
-  width: 85%;
 }
 
 footer{
-  background: gray;
-  border: 4px solid purple;
-  width: 100%;
+  border: 1px solid white;
   height: 100px;
+  width:98.33%;
+  backdrop-filter: brightness(120%) blur(5px);
 }
 
 /*
@@ -209,14 +208,12 @@ pre {
   font-family: monospace;
   font-size: 15px;
   line-height: 1.6;
-  max-width: 90%;
-  overflow: scroll;
+  max-width:720px;
   overflow-y: hidden;
   text-align: left;
   padding: 1em 1.5em;
-  margin-left: 2%;
-  margin-right: 2%;
   display: block;
+  margin:auto;
   font-family: "Lucida Console", "Courier New", monospace;
 }
 
@@ -240,20 +237,52 @@ div.IframeContainer iframe{
 }
 
 
+.MainContent div.ZoomImageContainer{
+  width:98.5%;
+  height:100%;
+  margin:auto;
+  /*border:2px solid black;*/
+}
+div.ZoomImageContainer img{
+  cursor:zoom-in;
+  margin:auto;
+  object-fit: contain;
+
+}
+input#zoom_img[type=checkbox]{
+  display:none;
+}
+input#zoom_img[type=checkbox]:checked ~ label > img{
+  transform: scale(1.75) translate(0,0)/*translateY(-60vh) translateX(-20vw)*/;
+  cursor:zoom-out;
+}
+
+
 .MainContent img.ExampleImage{
-  max-width: 80%;
+  width: 80%;
   max-height: 80%;
   margin:auto;
   border-width: 2px;
   border-style: solid;
+  cursor:zoom-in;
+}
 
-}/*
+/*
   -webkit-transition: all .7s ease-in-out;
 -moz-transition: all .7s ease-in-out;
 -ms-transition: all .7s ease-in-out;
 -o-transition: all .7s ease-in-out;
 transition: all .7s ease-in-out;
 }
+*/
+
+/*.MainContent img.ExampleImage:active,
+.MainContext img.ExampleImage:focus{
+    transform: translate(-50%, -75%);
+     transform: scale(2);
+}*/
+
+/*
 
 .MainContent img:hover{
   color: #424242; 

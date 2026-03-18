@@ -1,104 +1,141 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" type="text/css" href="../styles/style.css" />
-        <link rel="stylesheet" type="text/css" href="../styles/contentTile.css" />
-        <title>Tim's Site</title>
-        <link rel="shortcut icon" href="#" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="../styles/style.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/contentTile.css" />
+    <title>Tim's Site</title>
+    <link rel="shortcut icon" href="#" />
 
-        <script type="text/javascript" src="../ContentLoader.js"></script>
+    <script type="text/javascript" src="../ContentLoader.js"></script>
 
-    </head>
-    <body onload="PopulatePageBar('..')">
-        <img class="TitleImage" src="../header-size.jpg" />
-        <div class="HorizontalBox">
-            <div class="LeftBar">
-                <ul id="PageBar">
-                    
-                </ul>
-            </div>
-             <div class="MainContent">
-                
-                
-      <div class="IframeContainer">
-        <iframe src="https://www.youtube.com/embed/nvHyeVypFfk" frameborder="0" allowfullscreen>
-        </iframe>
+  </head>
+  <body onload="PopulatePageBar('..')">
+    <img class="TitleImage" src="../header-size.jpg" />
+    <div class="HorizontalBox">
+      <div class="LeftBar">
+        <ul id="PageBar">
+
+        </ul>
       </div>
-    <p class="ParagraphContent PageText">
-      The capstone semester course at Ohio State University for the computer graphics and game design track breaks students into groups, mine being composed of four individuals including me, to create a game in Unity.
+      <div class="MainContent">
+        <div class="IframeContainer">
+          <iframe src="https://www.youtube.com/embed/nvHyeVypFfk"
+            frameborder="0" allowfullscreen>
+          </iframe>
+        </div>
 
-      Haunted Electrician, the game my group created, had the player act as an electrician trying to restore power to a haunted mansion in order to escape.
+        <p class="ParagraphContent PageText">
+          The capstone semester course at Ohio State University for the computer
+          graphics and game design track breaks students into groups, mine being
+          composed of four individuals including me, to create a game in Unity.
 
-      Throughout the game the player would solve puzzles and read notes of previous events that took place while being continuously pursued by an enemy.
+          Haunted Electrician, the game my group created, had the player act as
+          an electrician trying to restore power to a haunted mansion in order
+          to escape.
 
-      The final version of the game at the end of the semester had all the original ideas for the game realized but I believe more time would have allowed for needed polished to get the intended experience.
+          Throughout the game the player would solve puzzles and read notes of
+          previous events that took place while being continuously pursued by an
+          enemy.
 
-    </p>
+          The final version of the game at the end of the semester had all the
+          original ideas for the game realized but I believe more time would
+          have allowed for needed polished to get the intended experience.
 
-    
+        </p>
 
-    <h2 class="PageSubtitle PageText">Responsibilities during development:</h2>
+        <h2 class="PageSubtitle PageText">Responsibilities during
+          development:</h2>
 
-    <ul class="PageListing PageText">
-      <li>AI behavior of the pursuing enemy</li>
-      <li>Encapsulated input and input manager to work with Unity input system</li>
-      <li>Saving game state and loading game state</li>
-      <li>Async level loading</li>
-      <li>Game states for different allowed input and behavior</li>
-    </ul>
 
-    <p class="ParagraphContent PageText">
-      The different game states for dealing with allowed input and logic were implemented using a polymorphic singleton pattern for each game state.
+        <ul class="PageListing PageText">
+          <li>AI behavior of the pursuing enemy</li>
+          <li>Encapsulated input and input manager to work with Unity input
+            system</li>
+          <li>Saving game state and loading game state</li>
+          <li>Async level loading</li>
+          <li>Game states for different allowed input and behavior</li>
+        </ul>
 
-      For game state changes the new game state singleton would be passed into a staic game state manger class.
-      
-      This would call clean up the previous game state and call any set up for the new game state.
 
-      The entering and exit of different states would enable and disable input as well as pausing and unpausing game logic.
+        <p class="ParagraphContent PageText">
+          The different game states for dealing with allowed input and logic
+          were implemented using a polymorphic singleton pattern for each game
+          state.
 
-      Along with managing the game state singletons this manager class also dealt with asynchronously loading into different scenes of the game.
+          For game state changes the new game state singleton would be passed
+          into a staic game state manger class.
 
-      The function dealing with asynchronous loading of scenes could also be passed a game state singleton to allow quick transition from a main menu state into the playable game state.
-    </p>
+          This would call clean up the previous game state and call any set up
+          for the new game state.
 
-    <p class="ParagraphContent PageText">
-      One of the requirements for the development of the capstone project was to use Unity's newer input system.
+          The entering and exit of different states would enable and disable
+          input as well as pausing and unpausing game logic.
 
-      An input manager was created to deal with the enabling and assignment of the different input actions.
+          Along with managing the game state singletons this manager class also
+          dealt with asynchronously loading into different scenes of the game.
 
-      The input logic was encapsulated into input commands which also stored all relevant references and values for the input action.
+          The function dealing with asynchronous loading of scenes could also be
+          passed a game state singleton to allow quick transition from a main
+          menu state into the playable game state.
+        </p>
+        <p class="ParagraphContent PageText">
+          One of the requirements for the development of the capstone project
+          was to use Unity's newer input system.
 
-      This encapsulation made it easier to implement new input actions and helped reduce clutter in other classes.
-    </p>
+          An input manager was created to deal with the enabling and assignment
+          of the different input actions.
 
-    <p class="ParagraphContent PageText">
-      AI for the enemy was done with a behavior tree which I had prior experience using in Unreal Engine.
+          The input logic was encapsulated into input commands which also stored
+          all relevant references and values for the input action.
 
-      The nodes that composed the tree were BTTask, BTService, BTDecorator, and BTComposite which are all children of a base node class.
+          This encapsulation made it easier to implement new input actions and
+          helped reduce clutter in other classes.
+        </p>
+        <p class="ParagraphContent PageText">
+          AI for the enemy was done with a behavior tree which I had prior
+          experience using in Unreal Engine.
 
-      A BehaviorTree class would handle the start of the tree execution as well as contained the blackboard keys and values to be accessed by the tree at any point of execution.
+          The nodes that composed the tree were BTTask, BTService, BTDecorator,
+          and BTComposite which are all children of a base node class.
 
-      The BehaviorTree class did not hold any AI logic or tree construction, instead a separate AI class would handle the blackboard, node and tree construction.
+          A BehaviorTree class would handle the start of the tree execution as
+          well as contained the blackboard keys and values to be accessed by the
+          tree at any point of execution.
 
-      The navigation for the ai was done with the provided navigation package.
+          The BehaviorTree class did not hold any AI logic or tree construction,
+          instead a separate AI class would handle the blackboard, node and tree
+          construction.
 
-    </p>
+          The navigation for the ai was done with the provided navigation
+          package.
 
-    <p class="ParagraphContent PageText">
-      The following image is a visual representation of the behavior tree created in Unreal Engine purely for demonstration purpose and is not functional.
-    </p>
+        </p>
+              
 
-    <img src="../images/HauntedElectricianBT.png" alt="Behavior Tree Visual" class="img"/>
+        <p class="ParagraphContent PageText">
+          The following image is a visual representation of the behavior tree
+          created in Unreal Engine purely for demonstration purpose and is not
+          functional.
+        </p>
 
-    <p class="ParagraphContent PageText">
-      Below is the actual construction of the behavior tree in csharp. 
-      
-      This does not include the blackboard keys and the initialization of their values.
-    </p>
-    
-    <pre>
+        <div class="ZoomImageContainer">
+          <input type="checkbox" name="" id="zoom_img">
+            <label for="zoom_img">
+              <img class="ExampleImage" src="./images/HauntedElectricianBT.png" alt="Behavior Tree Visual"/>
+            </label> 
+          </input>
+        </div>
+
+        <p class="ParagraphContent PageText">
+          Below is the actual construction of the behavior tree in csharp.
+
+          This does not include the blackboard keys and the initialization of
+          their values.
+        </p>
+
+         <pre>
 //sequence
 BTT_SetAgentChaseSpeed startRunning = new BTT_SetAgentChaseSpeed(patrollingBehaviorTree, chaseSpeed);
 BTT_MoveToPosition moveToPlayer = new BTT_MoveToPosition(patrollingBehaviorTree, BlackboardKey.FollowingGameObject, chaseSpeed,acceptanceRadius);
@@ -192,10 +229,10 @@ BTC_Selector patrolFollowOrBurn = new BTC_Selector("Patrol And Follow Or Burn In
 BTC_Selector selectorNode = new BTC_Selector("Root Selector", patrollingBehaviorTree, new List&lt;Node&gt;() { patrolFollowOrBurn });
     </pre>
 
-            </div>
-        </div>
-        <footer>
-            <p>test footer</p>
-        </footer>
-    </body>
+    </div>
+    </div>
+    <footer>
+      <p>test footer</p>
+    </footer>
+  </body>
 </html>
