@@ -30,6 +30,7 @@ pre, img, div.IframeContainer iframe{
 
 /*the rest*/
 body {
+  font-family: monospace;
   display: flex;
   /*border: 8px solid black;*/
   min-height: 100vh;
@@ -82,7 +83,7 @@ canvas.TestGL{
 
 .LeftBar {
   /*border: 8px solid red;*/
-  width:15%;
+  min-width:128px;
 }
 
 .MainContent{
