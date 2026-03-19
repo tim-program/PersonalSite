@@ -19,7 +19,7 @@ function JumbledJsonToHtmlListings(JsonData){
     var ContentTypes = Object.keys(JsonData);
     var HtmlMap = new Map();
     for(let Type of ContentTypes){
-        if(!(Type === "InProgress")){
+        if(!(Type === "InProgress") && !(Type==="Art")){
             var ListNames = Object.keys(JsonData[Type]);
             for(let Name of ListNames){
                 var ListingInfo = JsonData[Type][Name];
@@ -78,16 +78,19 @@ function PopulatePageBar(LinkPrefix){
 
 /*
  <a href="./index.html">
-                <div class="ProjectTitleTile">
-                    <h1>Title</h1>
-                    <p>Description</p>
+                <div class="ProjectTitleTile ListingTile ListingTile">
+                    <h1 class="PageText">Title</h1>
+                    <p class="PageText">Description</p>
                     <img src="source.png" alt="source"/>
                 </div>
             </a>
 */
 function CreateHtmlStringFromDetails(ContentType,ListingName,Title,Description,SourceType,Year){
+    
+    var TileClass = (ContentType==="Art") ? "ArtTile" : "ListingTile";
+
     var htmlString = "<a href=\"./"+ContentType+"/"+ListingName+".html\">\n";
-    htmlString += "<div class = \"ProjectTitleTile LinkTile\">\n";
+    htmlString += "<div class = \"ProjectTitleTile "+TileClass+" LinkTile\">\n";
     htmlString += "<h1 class = \"PageText\">" + Title + "</h1>\n";
     htmlString += "<p class = \"PageText\">" + Description + "</p>\n";
     htmlString += "<img src=\"./"+ ContentType + "/images/" + ListingName + "."+SourceType+"\" alt=\""+ListingName+"\"/>\n";

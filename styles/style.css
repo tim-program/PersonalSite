@@ -39,8 +39,7 @@ body {
   flex-direction: column;
   height:auto;
   min-width: 720px;
-  max-width: 1080px;
-  width:70%;
+  max-width: 1024px;
   margin-top:0px;
   margin-bottom:0px;
   margin-left: auto;
@@ -83,7 +82,7 @@ canvas.TestGL{
 
 .LeftBar {
   /*border: 8px solid red;*/
-  min-width:128px;
+  min-width:15%;
 }
 
 .MainContent{
@@ -265,7 +264,6 @@ input#zoom_img[type=checkbox]:checked ~ label > img{
   margin:auto;
   border-width: 2px;
   border-style: solid;
-  cursor:zoom-in;
 }
 
 /*
