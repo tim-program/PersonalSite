@@ -1,49 +1,55 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" type="text/css" href="../styles/style.css" />
-        <link rel="stylesheet" type="text/css" href="../styles/contentTile.css" />
-        <title>Tim's Site</title>
-        <link rel="shortcut icon" href="#" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="../styles/style.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/contentTile.css" />
+    <title>Tim's Site</title>
+    <link rel="shortcut icon" href="#" />
 
-        <script type="text/javascript" src="../ContentLoader.js"></script>
+    <script type="text/javascript" src="../ContentLoader.js"></script>
+    <link href="../external/lightbox2/css/lightbox.css" rel="stylesheet" />
+    <script src="../external/lightbox2/js/lightbox-plus-jquery.js"></script>
 
-    </head>
-    <body onload="PopulatePageBar('..')">
-        <img class="TitleImage" src="../header-size.jpg" />
-        <div class="HorizontalBox">
-            <div class="LeftBar">
-                <ul id="PageBar">
-                    
-                </ul>
-            </div>
-             <div class="MainContent">
-                
-                <h1 class="PageHeading PageText">Using Octree2 In Unreal</h1>
-    
+  </head>
+  <body onload="PopulatePageBar('..')">
+    <div class="HorizontalBox">
+      <div class="LeftBar">
+        <ul id="PageBar">
 
-      <ul id="PageBar">
-      </ul>
-      <img class="ExampleImage" src="./images/UnrealOctree2.png" alt="octree image"/>
+        </ul>
+      </div>
+      <div class="MainContent">
 
-      <p class="ParagraphContent PageText">(Not meant as a comprehensive tutorial)</p>
+        <h1 class="PageHeading PageText">Using Octree2 In Unreal</h1>
 
+        <ul id="PageBar">
+        </ul>
 
+        <ce-lightbox-image
+          link="./images/UnrealOctree2.png"
+          alink="./images/UnrealOctree2.png"
+          name="UnrealOctree2"></ce-lightbox-image>
 
-    <p class="ParagraphContent PageText">
-      
-      In a recent Unreal Engine project of mine I wanted to try utilizing octrees and found that unreal engine has some available octree data types.
+        <p class="ParagraphContent PageText">(Not meant as a comprehensive
+          tutorial)</p>
 
-      Although the resources I found for implementing octrees were for the previous deprecated version. 
+        <p class="ParagraphContent PageText">
 
-      Creation of the octree datatype in the header file is identical to the deprecated version.
-    
+          In a recent Unreal Engine project of mine I wanted to try utilizing
+          octrees and found that unreal engine has some available octree data
+          types.
 
-      </p>
-      
-      <pre>
+          Although the resources I found for implementing octrees were for the
+          previous deprecated version.
+
+          Creation of the octree datatype in the header file is identical to the
+          deprecated version.
+
+        </p>
+
+        <pre>
         #pragma once
 
         #include "Math/GenericOctree.h"
@@ -111,16 +117,19 @@
       
     </pre>
 
-    <p class="ParagraphContent PageText">
-      Iterating through the elements and nodes is where TOctree2 deviates from the previous deprecated version.
+        <p class="ParagraphContent PageText">
+          Iterating through the elements and nodes is where TOctree2 deviates
+          from the previous deprecated version.
 
-      In order to iterate through the elements and nodes of the octrees lambdas are passed into member methods which handles the iteration.
+          In order to iterate through the elements and nodes of the octrees
+          lambdas are passed into member methods which handles the iteration.
 
-      One lambda is a predicate to indicate what nodes/elements to work with and a second lambda which operates on the nodes/elements.
+          One lambda is a predicate to indicate what nodes/elements to work with
+          and a second lambda which operates on the nodes/elements.
 
-    </p>
+        </p>
 
-      <pre>
+        <pre>
       AOctreeDemoTool::AOctreeDemoTool(){
         SimpleOctree = new FSimpleOctree2(FVector(0.0f,0.0f,0.0f),100.0f);
       }
@@ -166,20 +175,23 @@
       }
       
       </pre>
-      
-      <p class="ParagraphContent PageText">
-        I've never made an octree myself, but a variable called LoosenessDenominator exists within the FOctreeNodeContext class.
 
-        This extends octree nodes past their exact extents (provide picture of comparison) and increasing the variable past its default value of 16 improves the tightness of the octree nodes.
-        
-        The quickest way I found to change this was by manually editing GenericOctree.h where it is located and rebuilding.
-  
-        
-      </p>
-            </div>
-        </div>
-        <footer>
-            <p>test footer</p>
-        </footer>
-    </body>
+        <p class="ParagraphContent PageText">
+          I've never made an octree myself, but a variable called
+          LoosenessDenominator exists within the FOctreeNodeContext class.
+
+          This extends octree nodes past their exact extents (provide picture of
+          comparison) and increasing the variable past its default value of 16
+          improves the tightness of the octree nodes.
+
+          The quickest way I found to change this was by manually editing
+          GenericOctree.h where it is located and rebuilding.
+
+        </p>
+      </div>
+    </div>
+    <footer>
+      <p>test footer</p>
+    </footer>
+  </body>
 </html>

@@ -10,9 +10,11 @@
 
     <script type="text/javascript" src="../ContentLoader.js"></script>
 
+    <link href="../external/lightbox2/css/lightbox.css" rel="stylesheet" />
+    <script src="../external/lightbox2/js/lightbox-plus-jquery.js"></script>
+
   </head>
   <body onload="PopulatePageBar('..')">
-    <img class="TitleImage" src="../header-size.jpg" />
     <div class="HorizontalBox">
       <div class="LeftBar">
         <ul id="PageBar">
@@ -48,7 +50,6 @@
         <h2 class="PageSubtitle PageText">Responsibilities during
           development:</h2>
 
-
         <ul class="PageListing PageText">
           <li>AI behavior of the pursuing enemy</li>
           <li>Encapsulated input and input manager to work with Unity input
@@ -57,7 +58,6 @@
           <li>Async level loading</li>
           <li>Game states for different allowed input and behavior</li>
         </ul>
-
 
         <p class="ParagraphContent PageText">
           The different game states for dealing with allowed input and logic
@@ -112,7 +112,6 @@
           package.
 
         </p>
-              
 
         <p class="ParagraphContent PageText">
           The following image is a visual representation of the behavior tree
@@ -120,13 +119,17 @@
           functional.
         </p>
 
-        <div class="ZoomImageContainer">
+        <!--<div class="ZoomImageContainer">
           <input type="checkbox" name="" id="zoom_img">
             <label for="zoom_img">
               <img class="ExampleImage" src="./images/HauntedElectricianBT.png" alt="Behavior Tree Visual"/>
             </label> 
           </input>
-        </div>
+        </div>-->
+        <ce-lightbox-image
+          link="./images/HauntedElectricianBT.png"
+          alink="./images/HauntedElectricianBT.png"
+          name="HauntedElectricianBT"></ce-lightbox-image>
 
         <p class="ParagraphContent PageText">
           Below is the actual construction of the behavior tree in csharp.
@@ -135,7 +138,7 @@
           their values.
         </p>
 
-         <pre>
+        <pre>
 //sequence
 BTT_SetAgentChaseSpeed startRunning = new BTT_SetAgentChaseSpeed(patrollingBehaviorTree, chaseSpeed);
 BTT_MoveToPosition moveToPlayer = new BTT_MoveToPosition(patrollingBehaviorTree, BlackboardKey.FollowingGameObject, chaseSpeed,acceptanceRadius);
@@ -229,7 +232,7 @@ BTC_Selector patrolFollowOrBurn = new BTC_Selector("Patrol And Follow Or Burn In
 BTC_Selector selectorNode = new BTC_Selector("Root Selector", patrollingBehaviorTree, new List&lt;Node&gt;() { patrolFollowOrBurn });
     </pre>
 
-    </div>
+      </div>
     </div>
     <footer>
       <p>test footer</p>

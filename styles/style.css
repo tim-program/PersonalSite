@@ -1,3 +1,17 @@
+/*Lightbox*/
+:root{
+
+  --lb-overlay-bg: #1a1a2e;
+  --lb-overlay-opacity: 0.9;
+  --lb-border-radius: 8px;
+  --lb-image-border-color: #1a1a2e;
+}
+
+
+
+
+
+
 /*Color Scheme*/
 /*
 html{
@@ -260,10 +274,15 @@ input#zoom_img[type=checkbox]:checked ~ label > img{
 
 .MainContent img.ExampleImage{
   width: 80%;
-  max-height: 80%;
   margin:auto;
   border-width: 2px;
   border-style: solid;
+  border-color: #FE9699;
+  cursor: zoom-in;
+}
+a.example-image-link{
+  padding: none;
+  margin:auto;
 }
 
 /*

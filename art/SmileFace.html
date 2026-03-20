@@ -7,21 +7,28 @@
         <link rel="stylesheet" type="text/css" href="../styles/contentTile.css" />
         <title>Tim's Site</title>
         <link rel="shortcut icon" href="#" />
-
+        
         <script type="text/javascript" src="../ContentLoader.js"></script>
-
+        
+        <link href="../external/lightbox2/css/lightbox.css" rel="stylesheet"/>
+        <script src="../external/lightbox2/js/lightbox-plus-jquery.js"></script>
+        
+        
     </head>
     <body onload="PopulatePageBar('..')">
-        <img class="TitleImage" src="../header-size.jpg" />
         <div class="HorizontalBox">
             <div class="LeftBar">
                 <ul id="PageBar">
                     
                 </ul>
             </div>
-             <div class="MainContent">
-                
-                <img class="ExampleImage" alt="SmileFace" src="./images/SmileFace.png"/>
+            <div class="MainContent">
+                <!--<img class="ExampleImage" alt="SmileFace" src="./images/SmileFace.png"/>-->
+                <ce-lightbox-image
+                    link="./images/SmileFace.png"
+                    alink="./images/SmileFace.png"
+                    name="SmileFace"
+                ></ce-lightbox-image>
             </div>
         </div>
         <footer>

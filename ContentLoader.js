@@ -1,4 +1,19 @@
 
+class ModularLightboxImage extends HTMLElement{
+    constructor(){
+        super();
+    }
+   
+    connectedCallback() {
+        const link=this.getAttribute("link");
+        const alink=this.getAttribute("alink");
+        const name=this.getAttribute("name");
+        this.innerHTML = "<a class=\"example-image-link\" href="+alink+" data-lightbox=\"example-1\"><img class=\" ExampleImage example-image\" src="+link+" alt="+name+" /></a>";
+    }
+}
+customElements.define("ce-lightbox-image",ModularLightboxImage);
+
+
 function LoadJsonContentJumbled(){
     var jsonContent = getProjectJson("./projects.json");
     jsonContent.then((data) => JumbledJsonToHtmlListings(data));
