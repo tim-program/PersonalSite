@@ -3,7 +3,7 @@
         "PSXZombieProject": {"Title":"PSX Zombies","Description":"Wave based zombie recreation utilizing recently made, but outdated, gun system.","src":"gif","Year":2023,"Month":6},
         "TetrisPytorchProject": {"Title":"Playing Tetris With Pytorch","Description":"Using pytorch to train a neural network to play pong.","src":"gif","Year":2026,"Month":4}
     },
-    "blogs":{
+    "Blogs":{
         "UnrealLegoMaterialScript": { "Title":"Python Scripts In Unreal","Description": "Using python in Unreal Engine to automate large tasks.","src":"gif","Year":2021,"Month":2 },
         "UnrealOctree2": { "Title":"Using Octree2 In Unreal", "Description": "Using Octree2 data type in Unreal Engine.","src":"png", "Year":2023,"Month":3},
         "GameJamAdapt": { "Title":"GameJam Adaptation","Description": "5 day GameJam submission using Unreal Engine.","src":"gif","Year":2021,"Month":10},
