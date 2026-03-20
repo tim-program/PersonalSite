@@ -34,7 +34,7 @@ function JumbledJsonToHtmlListings(JsonData){
     var ContentTypes = Object.keys(JsonData);
     var HtmlMap = new Map();
     for(let Type of ContentTypes){
-        if(!(Type === "InProgress") && !(Type==="Art")){
+        if(!(Type === "inprogress") && !(Type==="art")){
             var ListNames = Object.keys(JsonData[Type]);
             for(let Name of ListNames){
                 var ListingInfo = JsonData[Type][Name];
@@ -102,7 +102,7 @@ function PopulatePageBar(LinkPrefix){
 */
 function CreateHtmlStringFromDetails(ContentType,ListingName,Title,Description,SourceType,Year){
     
-    var TileClass = (ContentType==="Art") ? "ArtTile" : "ListingTile";
+    var TileClass = (ContentType==="art") ? "ArtTile" : "ListingTile";
 
     var htmlString = "<a href=\"./"+ContentType+"/"+ListingName+".html\">\n";
     htmlString += "<div class = \"ProjectTitleTile "+TileClass+" LinkTile\">\n";
