@@ -52,8 +52,12 @@ body {
   align-items: flex-start;
   flex-direction: column;
   height:auto;
+  /*
   min-width: 720px;
+  */
+  
   max-width: 900px;
+  
   margin-top:0px;
   margin-bottom:0px;
   margin-left: auto;
