@@ -65,13 +65,14 @@ body {
   padding-top:1rem;
   text-align: center;
   
+  /*
   background-image: url("../DitherTest.png");
   background-size: contain;
   image-rendering: pixelated;
-  
-/*
+  */
+
   background-image: linear-gradient(#CBE9FF,#CBE9FF,#FFE4CB,#FE9699);
-*/
+
 }
 
 img.TitleImage{
@@ -178,6 +179,7 @@ p.ParagraphContent{
  
 }
 
+/*
 .PageListing{
   margin:auto;
   align-items:center;
@@ -187,7 +189,11 @@ p.ParagraphContent{
   padding:1rem;
   font-size:20px;
 }
+*/
 
+#PageBar{
+  list-style: none;
+}
 
 #PageBar li{
   /*
@@ -215,6 +221,39 @@ p.ParagraphContent{
   margin: auto ;
 }
 
+#PageBar > li:first-child{
+  display:flex;
+  justify-content:flex-end;
+  margin-bottom:16px;
+  .HideBarBtn{
+    font-weight: 600;
+  }
+}
+
+#PageBar li.active{
+  color: teal;
+  img{
+    fill: teal;
+  }
+}
+
+#PageBar a, #PageBar .HideBarBtn{
+  border-radius: .5em;
+  padding: .85em;
+  text-decoration: none;
+  color:#5abaff;
+  display:flex;
+  align-items: center;
+  gap:1em;
+}
+
+#PageBar a span{
+  flex-grow: 1;
+}
+
+#PageBar a:hover{
+  background-color: hsl(358, 98%, 95%);
+}
 
 
 pre {
@@ -319,30 +358,68 @@ transform: scale(1.25);
 @media only screen and (min-width:1215px){
   #PageBar{
     padding:1rem;
-  }
+    }
 }
-
+    
 @media only screen and (max-width:1214px) and (min-width:641px){
   #PageBar{
     padding:1rem;
-  }
-
+    }
+    
+    /*
   #PageBar li{
     padding: 0 0.5rem;
     width: 15%;
     min-width: 0rem;
     max-width: 15rem;
     text-align: center;
-
+    
   }
+  */
 }
 
-@media only screen and (max-width:640px){
+
+@media only screen and (max-width:800px){
+  
+  .MainContent{
+    padding-top: 100px;
+  }
+
   #PageBar{
+
+    padding: 1rem;
+    /*
     justify-content: center;
     padding: none;
+    */
+    width: 100%;
+    padding: 0;
+     position:fixed;
+    top:0;
+    bottom: unset;
+    z-index: 100;
+    background-color: #CBE9FF;
+    
+    display:grid;
+    grid-auto-columns: auto;
+    grid-auto-flow: column;
+    align-items: center;
+    overflow-x:scroll;
+
+    li{
+      height:100%;
+    }
+    a{
+      border-radius: 0;
+      justify-content: center;
+    }
+
+    li:first-child{
+      display:none;  
+    }
   }
   
+  /*
   #PageBar li{
     display:block;
     padding: 0 0;
@@ -353,5 +430,5 @@ transform: scale(1.25);
     margin: auto ;
     margin-left: -5%;
   }
-
+  */
 }
