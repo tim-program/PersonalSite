@@ -24,16 +24,16 @@
 
         <h1 class="PageHeading PageText">Using Octree2 In Unreal</h1>
 
-        <ul id="PageBar">
-        </ul>
+      
 
         <ce-lightbox-image
           link="./images/UnrealOctree2.png"
           alink="./images/UnrealOctree2.png"
-          name="UnrealOctree2"></ce-lightbox-image>
-
-        <p class="ParagraphContent PageText">(Not meant as a comprehensive
-          tutorial)</p>
+          name="UnrealOctree2"
+        ></ce-lightbox-image>
+<!--
+        <p class="ParagraphContent PageText">
+          (Not meant as a comprehensivetutorial)</p>
 
         <p class="ParagraphContent PageText">
 
@@ -115,66 +115,67 @@
         
         };
       
-    </pre>
-
-        <p class="ParagraphContent PageText">
-          Iterating through the elements and nodes is where TOctree2 deviates
-          from the previous deprecated version.
-
-          In order to iterate through the elements and nodes of the octrees
-          lambdas are passed into member methods which handles the iteration.
-
-          One lambda is a predicate to indicate what nodes/elements to work with
-          and a second lambda which operates on the nodes/elements.
-
-        </p>
-
-        <pre>
-      AOctreeDemoTool::AOctreeDemoTool(){
-        SimpleOctree = new FSimpleOctree2(FVector(0.0f,0.0f,0.0f),100.0f);
-      }
-      
-      void AOctreeDemoTool::InitializeRootBounds(FVector WorldLocation, float MaxHalfExtent) {
-        FVector Min = FVector(-MaxHalfExtent, -MaxHalfExtent, -MaxHalfExtent);
-        FVector Max = FVector(MaxHalfExtent, MaxHalfExtent, MaxHalfExtent);
-      
-        FBox NewBounds = FBox(Min, Max);
-        NewBounds = NewBounds.ShiftBy(WorldLocation);
-        
-        SimpleOctree->Destroy();
-        delete SimpleOctree;
-        SimpleOctree = new FSimpleOctree2(NewBounds.GetCenter(), NewBounds.GetExtent().GetMax());
-      }
-      
-      
-      void AOctreeDemoTool::AddVector(FVector NewElementVector) {
-        FOctreeElement NewElement;
-        NewElement.ElementPoint = NewElementVector;
-        NewElement.BoxSphereBounds = FBoxSphereBounds(FVector(0.0f, 0.0f, 0.0f), FVector(1.0f, 1.0f, 1.0f), 1.0f);
-        NewElement.BoxSphereBounds.Origin =  NewElementVector;
-      
-        SimpleOctree->AddElement(NewElement);
-        
-        DrawDebugPoint(GetWorld(), NewElementVector, 10.0f, FColor::Green, true, 0.0f);
-      }
-      
-      void AOctreeDemoTool::DrawOctree(float LifeTime) {
-        UWorld* WorldContext = GetWorld();
-      
-        SimpleOctree->FindNodesWithPredicate(
-          [](FSimpleOctree2::FNodeIndex /*ParentNodeIndex*/, FSimpleOctree2::FNodeIndex /*NodeIndex*/, const FBoxCenterAndExtent& /*BoxBounds*/) {return true; },
-          [WorldContext,LifeTime](FSimpleOctree2::FNodeIndex ParentNodeIndex, FSimpleOctree2::FNodeIndex NodeIndex, const FBoxCenterAndExtent BoxBounds) {
-            DrawDebugBox(WorldContext, BoxBounds.Center, BoxBounds.Extent, FColor::Red, false, LifeTime);
-      
-          }
-        );
-      }
-      
-      void AOctreeDemoTool::DebugOctree() {
-        SimpleOctree->DumpStats();
-      }
-      
       </pre>
+      
+      <p class="ParagraphContent PageText">
+        Iterating through the elements and nodes is where TOctree2 deviates
+        from the previous deprecated version.
+        
+        In order to iterate through the elements and nodes of the octrees
+        lambdas are passed into member methods which handles the iteration.
+        
+        One lambda is a predicate to indicate what nodes/elements to work with
+        and a second lambda which operates on the nodes/elements.
+        
+      </p>
+      
+      -->
+      <pre>
+AOctreeDemoTool::AOctreeDemoTool(){
+  SimpleOctree = new FSimpleOctree2(FVector(0.0f,0.0f,0.0f),100.0f);
+}
+      
+void AOctreeDemoTool::InitializeRootBounds(FVector WorldLocation, float MaxHalfExtent) {
+  FVector Min = FVector(-MaxHalfExtent, -MaxHalfExtent, -MaxHalfExtent);
+  FVector Max = FVector(MaxHalfExtent, MaxHalfExtent, MaxHalfExtent);
+
+  FBox NewBounds = FBox(Min, Max);
+  NewBounds = NewBounds.ShiftBy(WorldLocation);
+  
+  SimpleOctree->Destroy();
+  delete SimpleOctree;
+  SimpleOctree = new FSimpleOctree2(NewBounds.GetCenter(), NewBounds.GetExtent().GetMax());
+}
+      
+      
+void AOctreeDemoTool::AddVector(FVector NewElementVector) {
+  FOctreeElement NewElement;
+  NewElement.ElementPoint = NewElementVector;
+  NewElement.BoxSphereBounds = FBoxSphereBounds(FVector(0.0f, 0.0f, 0.0f), FVector(1.0f, 1.0f, 1.0f), 1.0f);
+  NewElement.BoxSphereBounds.Origin =  NewElementVector;
+
+  SimpleOctree->AddElement(NewElement);
+  
+  DrawDebugPoint(GetWorld(), NewElementVector, 10.0f, FColor::Green, true, 0.0f);
+}
+      
+void AOctreeDemoTool::DrawOctree(float LifeTime) {
+  UWorld* WorldContext = GetWorld();
+
+  SimpleOctree->FindNodesWithPredicate(
+    [](
+      FSimpleOctree2::FNodeIndex /*ParentNodeIndex*/, FSimpleOctree2::FNodeIndex /*NodeIndex*/, const FBoxCenterAndExtent& /*BoxBounds*/) {return true; },
+    [WorldContext,LifeTime](FSimpleOctree2::FNodeIndex ParentNodeIndex, FSimpleOctree2::FNodeIndex NodeIndex, const FBoxCenterAndExtent BoxBounds) {
+      DrawDebugBox(WorldContext, BoxBounds.Center, BoxBounds.Extent, FColor::Red, false, LifeTime);
+    }
+  );
+}
+      
+void AOctreeDemoTool::DebugOctree() {
+  SimpleOctree->DumpStats();
+}
+      
+    </pre>
 
         <p class="ParagraphContent PageText">
           I've never made an octree myself, but a variable called

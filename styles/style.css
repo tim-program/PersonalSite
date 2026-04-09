@@ -58,11 +58,9 @@ body {
   
   max-width: 900px;
   
-  margin-top:0px;
-  margin-bottom:0px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-top:1rem;
+  margin-left:auto;
+  margin-right:auto;
+
   text-align: center;
   
   /*
@@ -94,7 +92,7 @@ canvas.TestGL{
   flex-direction: row;
   flex-wrap: nowrap;
   flex:1;
-  width: 98.5%;/*may cause horizontal box to overextend*/
+  width: 100%;/* 98.5% may cause horizontal box to overextend*/
   backdrop-filter: brightness(120%) blur(5px);
 
 }
@@ -112,9 +110,9 @@ canvas.TestGL{
 }
 
 footer{
-  border: 1px solid white;
+  border-top: 1px solid white;
   height: 100px;
-  width:98.33%;
+  width:100%;/* 98.5% may cause horizontal box to overextend*/
   backdrop-filter: brightness(120%) blur(5px);
 }
 
@@ -257,20 +255,21 @@ p.ParagraphContent{
 
 
 pre {
+  margin-left:2%;
+  margin-right:2%;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  display: block;
+  padding: 1em 1.5em;
+
   color: #f4f4f4;
   border: 5px solid #5D2B90;
-
   background: #444;
   page-break-inside: avoid;
   font-family: monospace;
   font-size: 15px;
   line-height: 1.6;
-  max-width:720px;
-  overflow-y: hidden;
   text-align: left;
-  padding: 1em 1.5em;
-  display: block;
-  margin:auto;
   font-family: "Lucida Console", "Courier New", monospace;
 }
 
@@ -314,10 +313,8 @@ input#zoom_img[type=checkbox]:checked ~ label > img{
   cursor:zoom-out;
 }
 
-
 .MainContent img.ExampleImage{
-  width: 80%;
-  margin:auto;
+  width:80%;
   border-width: 2px;
   border-style: solid;
   border-color: #FE9699;

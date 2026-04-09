@@ -4,8 +4,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" type="text/css" href="../styles/style.css" />
-        <link rel="stylesheet" type="text/css"
-            href="../styles/contentTile.css" />
+        <link rel="stylesheet" type="text/css" href="../styles/contentTile.css" />
         <title>Tim's Site</title>
         <link rel="shortcut icon" href="#" />
 
@@ -29,7 +28,6 @@
                 </div>
 
                 <p class="ParagraphContent PageText">
-
                     This small project was originally inspired by another
                     YouTube <a
                         href="https://www.youtube.com/watch?v=HELDYdr5i4Q&ab_channel=NicolasBrack">video</a>.
@@ -92,57 +90,70 @@
 
                 </p>
 
-                <pre>
-      import unreal
-      
-      
-      material_mesh_map = {}
-      num_mappings = 0
-      
-      def contains_key(material_key):
-          for key in material_mesh_map.keys():
-              if key == material_key:
-                  return True
-          return False
-      
-      def create_imperfect_instance(mesh_material):
-          master_instance = unreal.EditorAssetLibrary.load_asset('/Game/ImperfectShaders/MI_MasterImperfection.MI_MasterImperfection')
-          asset_tools_object = unreal.AssetToolsHelpers.get_asset_tools()
-          duplicate_instance = asset_tools_object.duplicate_asset("M_Imperfect_" + mesh_material.get_name(),'/Game/ImperfectShaders/Duplicate',master_instance)
-          imperfect_instance = unreal.MaterialInstanceConstant.cast(duplicate_instance)
-      
-          uses_textures = len(unreal.MaterialEditingLibrary.get_used_textures(mesh_material)) != 0
-      
-          #only support one texture materials
-          if uses_textures:
-              material_texture = unreal.MaterialEditingLibrary.get_used_textures(mesh_material)[0]
-              unreal.MaterialEditingLibrary.set_material_instance_scalar_parameter_value(imperfect_instance,"bUseTexture",1.0)
-              unreal.MaterialEditingLibrary.set_material_instance_texture_parameter_value(imperfect_instance,"TextureParameter",material_texture)
-          else:
-              diffuse_color = unreal.MaterialEditingLibrary.get_material_default_vector_parameter_value(mesh_material,"Param")
-              unreal.MaterialEditingLibrary.set_material_instance_vector_parameter_value(imperfect_instance,"DiffuseParameter",diffuse_color)
-      
-          return imperfect_instance
-          
-      
-      selected_assets = unreal.EditorUtilityLibrary.get_selected_assets()
-      
-      for selected_asset in selected_assets:
-          sm_asset_cast = unreal.StaticMesh.cast(selected_asset)
-          if sm_asset_cast != None:
-              if contains_key(sm_asset_cast.get_material(0)):
-                  material_mesh_map[sm_asset_cast.get_material(0)].append(sm_asset_cast)
-              else:
-                  unreal.log("Creating new mapping: "+str(num_mappings))
-                  num_mappings+=1
-                  material_mesh_map.update({sm_asset_cast.get_material(0):[]})
-                  material_mesh_map[sm_asset_cast.get_material(0)].append(sm_asset_cast)
-      
-      for current_material in material_mesh_map.keys():
-          imperfect_material = create_imperfect_instance(current_material)
-          for current_mesh in material_mesh_map[current_material]:
-              current_mesh.set_material(0,imperfect_material)
-              unreal.log("Material assigned to mesh: "+current_mesh.get_name())
+                <pre style="font-size:10px;">
+import unreal
+import unreal.MaterialEditingLibrary as MEL
+import unreal.AssetToolsHelpers as ATH
+from unreal.EditorAssetLibrary import load_asset
+
+material_mesh_map = {}
+num_mappings = 0
+
+def contains_key(material_key):
+    for key in material_mesh_map.keys():
+        if key == material_key:
+            return True
+    return False
+
+def create_imperfect_instance(mesh_material):
+    a_pth = '/Game/ImperfectShaders/MI_MasterImperfection.MI_MasterImperfection'
+    master_instance = load_asset(a_pth)
+    asset_tools_object = ATH.get_asset_tools()
+    duplicate_instance = asset_tools_object.duplicate_asset("M_Imperfect_" + mesh_material.get_name(), '/Game/ImperfectShaders/Duplicate', master_instance)
+    imperfect_instance = unreal.MaterialInstanceConstant.cast(duplicate_instance)
+
+    uses_textures = len(MEL.get_used_textures(mesh_material)) != 0
+
+    #only support one texture materials
+    if uses_textures:
+        material_texture = MEL.get_used_textures(mesh_material)[0]
+        MEL.set_material_instance_scalar_parameter_value( \
+            imperfect_instance,  \
+            "bUseTexture", 1.0)
+        MEL.set_material_instance_texture_parameter_value(\
+            imperfect_instance, \
+            "TextureParameter", \
+            material_texture)
+    else:
+        diffuse_color = MEL.get_material_default_vector_parameter_value(\
+            mesh_material, \
+            "Param")
+        MEL.set_material_instance_vector_parameter_value(\
+            imperfect_instance, \
+            "DiffuseParameter", \
+            diffuse_color)
+
+    return imperfect_instance
+    
+
+selected_assets = unreal.EditorUtilityLibrary.get_selected_assets()
+
+for selected_asset in selected_assets:
+    sm_asset_cast = unreal.StaticMesh.cast(selected_asset)
+    if sm_asset_cast != None:
+        if contains_key(sm_asset_cast.get_material(0)):
+            material_mesh_map[sm_asset_cast.get_material(0)].append(sm_asset_cast)
+        else:
+            unreal.log("Creating new mapping: "+str(num_mappings))
+            num_mappings+=1
+            material_mesh_map.update({sm_asset_cast.get_material(0):[]})
+            material_mesh_map[sm_asset_cast.get_material(0)].append(sm_asset_cast)
+
+for current_material in material_mesh_map.keys():
+    imperfect_material = create_imperfect_instance(current_material)
+    for current_mesh in material_mesh_map[current_material]:
+        current_mesh.set_material(0, imperfect_material)
+        unreal.log("Material assigned to mesh: " + current_mesh.get_name())
       </pre>
             </div>
         </div>
